@@ -11,7 +11,7 @@ Professional Infrastructure Management Tools for Public Works Department
 
 ## ✨ Features
 
-- **15 Professional Tools** - Complete suite for PWD operations
+- **14 Professional Tools** - Complete suite for PWD operations
 - **Beautiful UI** - Gradient theme with smooth animations
 - **Real Data Tested** - Verified with 811 rows of actual Excel data
 - **Production Ready** - 100% test pass rate
@@ -61,12 +61,9 @@ docker-compose up -d
 11. **Hand Receipt (RPWA 28)** - RPWA 28 receipts
 12. **Excel to EMD Web** - Batch EMD processing
 
-### 📊 Tracking & Reports
-13. **Tender Processing** - Tender management
-
 ### 🔧 Utilities
-14. **Main BAT Info** - Launcher information
-15. **User Manual** - Bilingual manual
+13. **Main BAT Info** - Launcher information
+14. **User Manual** - Bilingual manual
 
 ---
 
@@ -74,7 +71,7 @@ docker-compose up -d
 
 ✅ **All Tests Passed**
 - 29/29 tests passed (100%)
-- 15/15 tools working
+- 14/14 tools working
 - 4 Excel files processed (811 rows)
 - All deployment files present
 - Documentation complete

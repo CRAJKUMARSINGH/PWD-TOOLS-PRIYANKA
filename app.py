@@ -1,6 +1,6 @@
 """
 PWD Tools Suite - Main Application
-All 15 tools in one deployable app with beautiful UI
+All 14 tools in one deployable app with beautiful UI
 Each tool can also be deployed independently
 """
 
@@ -310,15 +310,6 @@ tools = {
             "status": "enhanced"
         }
     ],
-    "📊 Tracking & Reports": [
-        {
-            "name": "Tender Processing",
-            "icon": "📋",
-            "description": "Comprehensive tender management (external link)",
-            "file": "tools/tender_processing.py",
-            "status": "ready"
-        }
-    ],
     "🔧 Utilities": [
         {
             "name": "Main BAT Info",
@@ -391,7 +382,7 @@ with st.sidebar:
     
     Professional tools for Public Works Department operations.
     
-    ✅ 15 tools available
+    ✅ 14 tools available
     ✅ All independently deployable
     ✅ Enterprise Bill Generator integrated
     ✅ Beautiful UI with animations
@@ -501,7 +492,7 @@ if selected_category == "🏠 Home":
         st.markdown("""
         <div class="feature-card">
             <h3>📦 Full Suite Deployment</h3>
-            <p>Deploy all 15 tools together:</p>
+            <p>Deploy all 14 tools together:</p>
             <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px;">streamlit run app.py</pre>
             <p><strong>Benefits:</strong></p>
             <ul>
