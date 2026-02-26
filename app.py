@@ -1,6 +1,6 @@
 """
 PWD Tools Suite - Main Application
-All 14 tools in one deployable app with beautiful UI
+All 13 tools in one deployable app with beautiful UI
 Each tool can also be deployed independently
 """
 
@@ -229,13 +229,6 @@ tools = {
     ],
     "💰 Financial Tools": [
         {
-            "name": "Excel to EMD",
-            "icon": "💰",
-            "description": "Generate EMD refund receipts from Excel files",
-            "file": "tools/excel_to_emd.py",
-            "status": "ready"
-        },
-        {
             "name": "EMD Refund Calculator",
             "icon": "💸",
             "description": "Calculate EMD refunds with penalties",
@@ -303,9 +296,9 @@ tools = {
             "status": "ready"
         },
         {
-            "name": "Excel to EMD Web",
-            "icon": "🌐",
-            "description": "Web-based EMD receipt generator (batch processing)",
+            "name": "Excel to EMD",
+            "icon": "📊",
+            "description": "Generate EMD receipts from Excel (batch processing with PDF support)",
             "file": "tools/excel_to_emd_web.py",
             "status": "enhanced"
         }
@@ -382,7 +375,7 @@ with st.sidebar:
     
     Professional tools for Public Works Department operations.
     
-    ✅ 14 tools available
+    ✅ 13 tools available
     ✅ All independently deployable
     ✅ Enterprise Bill Generator integrated
     ✅ Beautiful UI with animations
@@ -492,7 +485,7 @@ if selected_category == "🏠 Home":
         st.markdown("""
         <div class="feature-card">
             <h3>📦 Full Suite Deployment</h3>
-            <p>Deploy all 14 tools together:</p>
+            <p>Deploy all 13 tools together:</p>
             <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px;">streamlit run app.py</pre>
             <p><strong>Benefits:</strong></p>
             <ul>

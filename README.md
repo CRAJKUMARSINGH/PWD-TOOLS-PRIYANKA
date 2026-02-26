@@ -11,7 +11,7 @@ Professional Infrastructure Management Tools for Public Works Department
 
 ## ✨ Features
 
-- **14 Professional Tools** - Complete suite for PWD operations
+- **13 Professional Tools** - Complete suite for PWD operations
 - **Beautiful UI** - Gradient theme with smooth animations
 - **Real Data Tested** - Verified with 811 rows of actual Excel data
 - **Production Ready** - 100% test pass rate
@@ -45,25 +45,24 @@ docker-compose up -d
 1. **Bill Generator Enterprise** - Complete bill package (First Page, Deviation, Note Sheet, Certificate II, PDFs)
 
 ### 💰 Financial Tools
-2. **Excel to EMD** - EMD receipt generator
-3. **EMD Refund Calculator** - EMD refund calculations
-4. **Security Refund** - Security deposit refunds
-5. **Bill Note Sheet** - Note sheets with LD calculation
-6. **Deductions Table** - TDS and security deductions
-7. **Financial Progress** - Project financial tracking
+2. **EMD Refund Calculator** - EMD refund calculations
+3. **Security Refund** - Security deposit refunds
+4. **Bill Note Sheet** - Note sheets with LD calculation
+5. **Deductions Table** - TDS and security deductions
+6. **Financial Progress** - Project financial tracking
 
 ### 🧮 Calculators
-8. **APG Calculator** - APG savings calculator
-9. **Delay Calculator** - Project delay analysis
-10. **Stamp Duty** - Stamp duty calculator
+7. **APG Calculator** - APG savings calculator
+8. **Delay Calculator** - Project delay analysis
+9. **Stamp Duty** - Stamp duty calculator
 
 ### 📋 Document Generators
-11. **Hand Receipt (RPWA 28)** - RPWA 28 receipts
-12. **Excel to EMD Web** - Batch EMD processing
+10. **Hand Receipt (RPWA 28)** - RPWA 28 receipts
+11. **Excel to EMD** - Batch EMD receipt generation from Excel with PDF support
 
 ### 🔧 Utilities
-13. **Main BAT Info** - Launcher information
-14. **User Manual** - Bilingual manual
+12. **Main BAT Info** - Launcher information
+13. **User Manual** - Bilingual manual
 
 ---
 
@@ -71,7 +70,7 @@ docker-compose up -d
 
 ✅ **All Tests Passed**
 - 29/29 tests passed (100%)
-- 14/14 tools working
+- 13/13 tools working
 - 4 Excel files processed (811 rows)
 - All deployment files present
 - Documentation complete
