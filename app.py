@@ -1,6 +1,6 @@
 """
 PWD Tools Suite - Main Application
-All 17 tools in one deployable app with beautiful UI
+All 15 tools in one deployable app with beautiful UI
 Each tool can also be deployed independently
 """
 
@@ -222,16 +222,9 @@ tools = {
         {
             "name": "Bill Generator Enterprise",
             "icon": "🏗️",
-            "description": "Full-featured bill generation system with Excel upload, batch processing, and document generation",
+            "description": "Complete bill package: First Page, Deviation Statement, Note Sheet, Certificate II, and PDFs",
             "file": "tools/bill_generator_enterprise.py",
             "status": "enterprise"
-        },
-        {
-            "name": "Bill Deviation",
-            "icon": "📊",
-            "description": "Generate deviation statements with excess/saving analysis",
-            "file": "tools/bill_deviation.py",
-            "status": "enhanced"
         }
     ],
     "💰 Financial Tools": [
@@ -398,7 +391,7 @@ with st.sidebar:
     
     Professional tools for Public Works Department operations.
     
-    ✅ 17 tools available
+    ✅ 15 tools available
     ✅ All independently deployable
     ✅ Enterprise Bill Generator integrated
     ✅ Beautiful UI with animations
@@ -508,7 +501,7 @@ if selected_category == "🏠 Home":
         st.markdown("""
         <div class="feature-card">
             <h3>📦 Full Suite Deployment</h3>
-            <p>Deploy all 17 tools together:</p>
+            <p>Deploy all 15 tools together:</p>
             <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px;">streamlit run app.py</pre>
             <p><strong>Benefits:</strong></p>
             <ul>

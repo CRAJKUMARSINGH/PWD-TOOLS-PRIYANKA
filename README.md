@@ -11,7 +11,7 @@ Professional Infrastructure Management Tools for Public Works Department
 
 ## ✨ Features
 
-- **16 Professional Tools** - Complete suite for PWD operations
+- **15 Professional Tools** - Complete suite for PWD operations
 - **Beautiful UI** - Gradient theme with smooth animations
 - **Real Data Tested** - Verified with 811 rows of actual Excel data
 - **Production Ready** - 100% test pass rate
@@ -42,32 +42,31 @@ docker-compose up -d
 ## 🎯 Tools Included
 
 ### 🏗️ Enterprise Tools
-1. **Bill Generator Enterprise** - Full bill generation system
-2. **Bill Deviation** - Deviation statement generator
+1. **Bill Generator Enterprise** - Complete bill package (First Page, Deviation, Note Sheet, Certificate II, PDFs)
 
 ### 💰 Financial Tools
-3. **Excel to EMD** - EMD receipt generator
-4. **EMD Refund Calculator** - EMD refund calculations
-5. **Security Refund** - Security deposit refunds
-6. **Bill Note Sheet** - Note sheets with LD calculation
-7. **Deductions Table** - TDS and security deductions
-8. **Financial Progress** - Project financial tracking
+2. **Excel to EMD** - EMD receipt generator
+3. **EMD Refund Calculator** - EMD refund calculations
+4. **Security Refund** - Security deposit refunds
+5. **Bill Note Sheet** - Note sheets with LD calculation
+6. **Deductions Table** - TDS and security deductions
+7. **Financial Progress** - Project financial tracking
 
 ### 🧮 Calculators
-9. **APG Calculator** - APG savings calculator
-10. **Delay Calculator** - Project delay analysis
-11. **Stamp Duty** - Stamp duty calculator
+8. **APG Calculator** - APG savings calculator
+9. **Delay Calculator** - Project delay analysis
+10. **Stamp Duty** - Stamp duty calculator
 
 ### 📋 Document Generators
-12. **Hand Receipt (RPWA 28)** - RPWA 28 receipts
-13. **Excel to EMD Web** - Batch EMD processing
+11. **Hand Receipt (RPWA 28)** - RPWA 28 receipts
+12. **Excel to EMD Web** - Batch EMD processing
 
 ### 📊 Tracking & Reports
-14. **Tender Processing** - Tender management
+13. **Tender Processing** - Tender management
 
 ### 🔧 Utilities
-15. **Main BAT Info** - Launcher information
-16. **User Manual** - Bilingual manual
+14. **Main BAT Info** - Launcher information
+15. **User Manual** - Bilingual manual
 
 ---
 
@@ -75,7 +74,7 @@ docker-compose up -d
 
 ✅ **All Tests Passed**
 - 29/29 tests passed (100%)
-- 16/16 tools working
+- 15/15 tools working
 - 4 Excel files processed (811 rows)
 - All deployment files present
 - Documentation complete
