@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=210mm, height=297mm">
+    <title>Hand Receipt (RPWA 28) - EMD Refund</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 20mm;
+            font-size: 14pt;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 170mm;
+            margin: 0 auto;
+            border: 2px solid #000;
+            padding: 15mm;
+            box-sizing: border-box;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 20pt;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
+        .header h2 {
+            margin: 5px 0 0 0;
+            font-size: 16pt;
+            font-weight: normal;
+        }
+        
+        .receipt-number {
+            text-align: right;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .content {
+            margin: 20px 0;
+        }
+        
+        .field {
+            margin: 15px 0;
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .field-label {
+            font-weight: bold;
+            min-width: 150px;
+        }
+        
+        .field-value {
+            flex: 1;
+            border-bottom: 1px dotted #000;
+            padding: 0 10px;
+        }
+        
+        .amount-section {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #000;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature-box {
+            width: 45%;
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 50px;
+            padding-top: 5px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 10pt;
+            color: #666;
+        }
+        
+        .stamp-area {
+            position: absolute;
+            bottom: 30mm;
+            left: 30mm;
+            width: 60mm;
+            height: 40mm;
+            border: 2px dashed #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HAND RECEIPT</h1>
+            <h2>(RPWA 28)</h2>
+        </div>
+        
+        <div class="receipt-number">
+            Receipt No: EMD/20260226/001
+        </div>
+        
+        <div class="content">
+            <div class="field">
+                <span class="field-label">Date:</span>
+                <span class="field-value">26/02/2026</span>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Received from:</span>
+                <span class="field-value">M/s XYZ Builders Pvt. Ltd.</span>
+            </div>
+            
+            <div class="amount-section">
+                <div class="field">
+                    <span class="field-label">Amount (₹):</span>
+                    <span class="field-value" style="font-weight: bold; font-size: 16pt;">₹ 125,000.00</span>
+                </div>
+                
+                <div class="field">
+                    <span class="field-label">In Words:</span>
+                    <span class="field-value" style="font-style: italic;">One Lakh Twenty Five Thousand Rupees Only</span>
+                </div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Purpose:</span>
+                <span class="field-value">Refund of Earnest Money Deposit (EMD)</span>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Name of Work:</span>
+                <span class="field-value">Building Construction at Government School, Udaipur</span>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Mode of Payment:</span>
+                <span class="field-value">Cheque / NEFT / RTGS</span>
+            </div>
+        </div>
+        
+        <div class="signature-section">
+            <div class="signature-box">
+                <div class="signature-line">
+                    Receiver's Signature
+                </div>
+            </div>
+            
+            <div class="signature-box">
+                <div class="signature-line">
+                    Authorized Signatory<br>
+                    PWD Department
+                </div>
+            </div>
+        </div>
+        
+        <div class="stamp-area">
+            OFFICE SEAL
+        </div>
+        
+        <div class="footer">
+            <p>Public Works Department, Udaipur, Rajasthan</p>
+            <p>Prepared on Initiative of Mrs. Premlata Jain, AAO</p>
+        </div>
+    </div>
+</body>
+</html>
