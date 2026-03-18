@@ -161,7 +161,7 @@ PWD-Tools-Suite/
 - Access on local network
 - Full control
 
-### 3. Docker
+### 4. Docker
 ```bash
 docker build -t pwd-tools .
 docker run -p 8501:8501 pwd-tools
@@ -197,12 +197,13 @@ Proprietary - Public Works Department, Udaipur, Rajasthan
 
 ## 🔄 Version History
 
-### v2.0.1 (March 18, 2026)
+### v2.0.1 (March 18, 2025)
 - ✅ Beautiful landing page with gradient cards
 - ✅ Elegant sidebar navigation
 - ✅ Welcome balloons and celebrations
 - ✅ Quick stats display
 - ✅ Smooth animations and hover effects
+- ✅ Hindi Bill Note Sheet fully integrated
 - ✅ Deployed to Streamlit Cloud
 - ✅ Production ready
 
