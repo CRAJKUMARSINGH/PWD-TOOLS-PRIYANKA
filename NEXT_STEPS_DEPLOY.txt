@@ -1,0 +1,73 @@
+═══════════════════════════════════════════════════════════
+    ✅ STEP 1 COMPLETE - CODE PUSHED TO GITHUB!
+═══════════════════════════════════════════════════════════
+
+Your code is now at:
+https://github.com/CRAJKUMARSINGH/BILL-NOTE-SHEET
+
+═══════════════════════════════════════════════════════════
+    📋 NEXT STEPS - Deploy to Streamlit Cloud
+═══════════════════════════════════════════════════════════
+
+STEP 2: Deploy to Streamlit Cloud (5 minutes)
+
+1. Open this website:
+   https://share.streamlit.io
+
+2. Click "New app" button
+
+3. Fill in the form:
+   
+   Repository: CRAJKUMARSINGH/BILL-NOTE-SHEET
+   Branch: main
+   Main file path: Home.py
+   App URL: pwd-tools-priyanka
+   
+4. Click "Deploy" button
+
+5. Wait 2-3 minutes for deployment
+
+6. Your app will be live at:
+   https://pwd-tools-priyanka.streamlit.app
+   
+7. COPY THIS URL! You'll need it for Netlify.
+
+═══════════════════════════════════════════════════════════
+    📋 STEP 3 - Update Netlify Landing Page
+═══════════════════════════════════════════════════════════
+
+After Streamlit Cloud deployment:
+
+1. Open file: NETLIFY_UPDATE/index.html
+
+2. Find line 127 (search for "streamlit.app")
+
+3. Replace with YOUR Streamlit Cloud URL from Step 2
+
+4. Go to: https://app.netlify.com
+
+5. Find your site: pwd-tools-priyanka
+
+6. Drag the NETLIFY_UPDATE folder to deploy
+
+7. Done! Your landing page now links to the working app!
+
+═══════════════════════════════════════════════════════════
+    🎯 FINAL RESULT
+═══════════════════════════════════════════════════════════
+
+Landing Page (Netlify):
+https://pwd-tools-priyanka.netlify.app
+
+Working App (Streamlit Cloud):
+https://pwd-tools-priyanka.streamlit.app
+
+═══════════════════════════════════════════════════════════
+
+📞 NEED HELP?
+
+Read: DEPLOY_NOW.md (detailed instructions)
+
+Or just follow the steps above!
+
+═══════════════════════════════════════════════════════════
