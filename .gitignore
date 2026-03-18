@@ -63,6 +63,9 @@ netlify_redirect/
 netlify_landing/
 TEST_INPUT_FILES/
 
+# Keep ATTACHED_ASSETS - it contains the Hindi Bill Note Sheet app
+# !ATTACHED_ASSETS/
+
 # Temporary files
 *.tmp
 *.temp
