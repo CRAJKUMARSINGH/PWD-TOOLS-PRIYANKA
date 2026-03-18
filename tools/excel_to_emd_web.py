@@ -243,9 +243,12 @@ def main():
                                 # Generate HTML
                                 rendered_html = receipt_template.render(receipts=receipts)
                                 
-                                # Generate PDF if weasyprint available
+                                # Generate PDF if xhtml2pdf available
                                 if has_weasyprint:
-                                    pdf_bytes = HTML(string=rendered_html).write_pdf()
+                                    from io import BytesIO
+                                    result = BytesIO()
+                                    pisa.CreatePDF(BytesIO(rendered_html.encode('utf-8')), dest=result)
+                                    pdf_bytes = result.getvalue()
                                     
                                     st.success("✅ PDF generated successfully!")
                                     st.balloons()
