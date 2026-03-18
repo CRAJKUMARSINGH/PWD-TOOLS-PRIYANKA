@@ -2,16 +2,30 @@
 
 **Professional Infrastructure Management Tools for Public Works Department**
 
+## 🌐 Live Deployments
+
+<div align="center">
+
+### 🚀 Main Application
+**https://pwd-tools-priyanka.streamlit.app/**
+
+### 📄 Landing Page
+**https://pwd-tools-priyanka.netlify.app/**
+
+---
+
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://pwd-tools-priyanka.streamlit.app)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)]()
 [![Tools](https://img.shields.io/badge/Tools-13-blue)]()
 [![Version](https://img.shields.io/badge/Version-2.0.1-orange)]()
 
+</div>
+
 ## 🌟 Quick Access
 
-**🚀 Live App:** https://pwd-tools-priyanka.streamlit.app  
-**📄 Landing Page:** https://pwd-tools-priyanka.netlify.app  
-**📝 Hindi Bill Note Sheet:** https://hindibillnote.netlify.app/ (Complete interactive app)
+**🚀 Streamlit App:** https://pwd-tools-priyanka.streamlit.app  
+**📄 Netlify Landing:** https://pwd-tools-priyanka.netlify.app  
+**📝 Hindi Bill Note Sheet:** Fully integrated in Streamlit app (Page 5)
 
 ## ✨ Features
 
@@ -140,9 +154,7 @@ PWD-Tools-Suite/
 
 ### 2. Netlify (For Static/HTML Apps)
 - ✅ Landing page deployed
-- ✅ Hindi Bill Note Sheet (complete interactive app)
 - 🔗 Landing: https://pwd-tools-priyanka.netlify.app
-- 🔗 Hindi App: https://hindibillnote.netlify.app/
 
 ### 3. Local Server
 - Run on your computer
