@@ -1,20 +1,18 @@
 """
 PWD Tools Suite - Main Application
-All 13 tools in one deployable app with beautiful UI
 """
 
 import streamlit as st
 from pathlib import Path
 import sys
 import importlib.util
-from datetime import datetime
 
 # Add tools directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Page configuration
 st.set_page_config(
-    page_title="PWD Tools Suite | Professional Infrastructure Management",
+    page_title="PWD Tools Suite",
     page_icon="🏗️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -28,17 +26,17 @@ if 'first_visit' not in st.session_state:
 
 # Tool definitions
 TOOLS = {
-    "🏗️ Bill Generator Enterprise": {
+    "🏗️ Bill Generator": {
         "file": "tools/bill_generator_enterprise.py",
         "description": "Complete bill package with all documents and PDFs",
         "icon": "🏗️"
     },
     "📊 Excel to EMD": {
         "file": "tools/excel_to_emd_web.py",
-        "description": "Generate EMD receipts from Excel (batch processing)",
+        "description": "Generate EMD receipts from Excel",
         "icon": "📊"
     },
-    "💸 EMD Refund Calculator": {
+    "💸 EMD Refund": {
         "file": "tools/emd_refund.py",
         "description": "Calculate EMD refunds with penalties",
         "icon": "💸"
@@ -65,7 +63,7 @@ TOOLS = {
     },
     "🧮 APG Calculator": {
         "file": "tools/apg_calculator.py",
-        "description": "50% of savings beyond -15% below G-Schedule",
+        "description": "Calculate APG values",
         "icon": "🧮"
     },
     "⏱️ Delay Calculator": {
@@ -78,17 +76,17 @@ TOOLS = {
         "description": "Calculate stamp duty for documents",
         "icon": "⚖️"
     },
-    "🧾 Hand Receipt (RPWA 28)": {
+    "🧾 Hand Receipt": {
         "file": "tools/hand_receipt.py",
         "description": "Generate RPWA 28 compliant hand receipts",
         "icon": "🧾"
     },
     "📖 User Manual": {
         "file": "tools/user_manual.py",
-        "description": "Bilingual user manual (English/Hindi)",
+        "description": "Bilingual user manual",
         "icon": "📖"
     },
-    "ℹ️ Main BAT Info": {
+    "ℹ️ Main Info": {
         "file": "tools/main_bat_info.py",
         "description": "Information about launcher program",
         "icon": "ℹ️"
@@ -108,7 +106,7 @@ st.markdown("""
     
     .main-header {
         background: linear-gradient(to right, #667eea, #764ba2);
-        padding: 2rem;
+        padding: 2.5rem;
         border-radius: 15px;
         color: white;
         text-align: center;
@@ -116,35 +114,55 @@ st.markdown("""
         box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
     }
     
-    .tool-button {
-        background: white;
-        border: 2px solid #667eea;
-        border-radius: 12px;
-        padding: 20px;
-        margin: 10px 0;
+    .tool-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 15px 0;
         transition: all 0.3s ease;
-        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        color: white;
     }
     
-    .tool-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
-        border-color: #764ba2;
+    .tool-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
     }
+    
+    .tool-card-0 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .tool-card-1 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .tool-card-2 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .tool-card-3 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .tool-card-4 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .tool-card-5 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+    .tool-card-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+    .tool-card-7 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+    .tool-card-8 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+    .tool-card-9 { background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); }
+    .tool-card-10 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+    .tool-card-11 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .tool-card-12 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
     
     .stButton>button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        color: #667eea;
+        border: 2px solid rgba(255,255,255,0.3);
         border-radius: 10px;
         padding: 12px 24px;
-        font-weight: 600;
+        font-weight: 700;
+        font-size: 1rem;
         width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     
     .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        border-color: transparent;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -178,16 +196,6 @@ with st.sidebar:
                     use_container_width=True):
             st.session_state.selected_tool = tool_name
             st.rerun()
-    
-    st.markdown("---")
-    st.info(f"""
-    **PWD Tools Suite v2.0**
-    
-    ✅ {len(TOOLS)} tools available
-    ✅ Production ready
-    
-    **Status:** 🟢 Operational
-    """)
 
 # Main content
 if st.session_state.selected_tool is None:
@@ -195,44 +203,35 @@ if st.session_state.selected_tool is None:
     st.markdown("""
     <div class="main-header">
         <h1>🏗️ PWD Tools Suite</h1>
-        <p style="font-size: 1.2rem; margin: 0.5rem 0;">13 Professional Tools for Public Works Department</p>
+        <p style="font-size: 1.2rem; margin: 0.5rem 0;">Professional Tools for Public Works Department</p>
         <p style="font-size: 0.95rem; opacity: 0.9; margin-top: 1rem;">
             Initiative: Mrs. Premlata Jain, AAO, PWD Udaipur
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Stats
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Total Tools", len(TOOLS))
-    with col2:
-        st.metric("Status", "Ready", delta="100%")
-    with col3:
-        st.metric("Performance", "Fast", delta="⚡")
-    
-    st.markdown("---")
-    st.markdown("## 🔧 Available Tools")
-    
     # Display tools in grid
     cols = st.columns(3)
     for idx, (tool_name, tool_info) in enumerate(TOOLS.items()):
         with cols[idx % 3]:
             st.markdown(f"""
-            <div class="tool-button">
-                <div style="font-size: 2.5rem; text-align: center; margin-bottom: 10px;">
+            <div class="tool-card tool-card-{idx}">
+                <div style="font-size: 3.5rem; text-align: center; margin-bottom: 15px; 
+                            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
                     {tool_info['icon']}
                 </div>
-                <div style="font-weight: bold; font-size: 1rem; text-align: center; margin-bottom: 10px;">
+                <div style="font-weight: bold; font-size: 1.2rem; color: white; 
+                            text-align: center; margin-bottom: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
                     {tool_name.split(' ', 1)[1]}
                 </div>
-                <div style="font-size: 0.85rem; color: #636e72; text-align: center; min-height: 50px;">
+                <div style="font-size: 0.95rem; color: rgba(255,255,255,0.95); text-align: center; 
+                            min-height: 60px; line-height: 1.6; margin-bottom: 15px;">
                     {tool_info['description']}
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
-            if st.button("Launch", key=f"launch_{tool_name}", use_container_width=True):
+            if st.button("🚀 Launch", key=f"launch_{tool_name}", use_container_width=True):
                 st.session_state.selected_tool = tool_name
                 st.rerun()
     
@@ -247,9 +246,6 @@ if st.session_state.selected_tool is None:
         <p style='font-size: 1rem; margin: 1rem 0;'>
             <strong>Prepared on Initiative of:</strong><br>
             Mrs. Premlata Jain, AAO | PWD Udaipur, Rajasthan
-        </p>
-        <p style='font-size: 0.9rem; margin: 0.5rem 0;'>
-            13 Professional Tools | All Independently Deployable | 100% Production Ready
         </p>
     </div>
     """, unsafe_allow_html=True)
