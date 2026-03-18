@@ -217,7 +217,11 @@ with st.sidebar:
 
 # Main content
 if st.session_state.selected_tool is None:
-    # Home page
+    # Home page - Show balloons on first visit
+    if st.session_state.first_visit:
+        st.balloons()
+        st.session_state.first_visit = False
+    
     st.markdown("""
     <div class="main-header">
         <h1>🏗️ PWD Tools Suite</h1>
@@ -227,6 +231,20 @@ if st.session_state.selected_tool is None:
         </p>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Welcome message
+    st.success("🎉 Welcome to PWD Tools Suite! Select any tool below to get started.")
+    
+    # Quick stats with icons
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.info("🛠️ **13 Tools** available for your workflow")
+    with col2:
+        st.success("✅ **Production Ready** - Fully tested")
+    with col3:
+        st.warning("⚡ **Fast Performance** - Optimized")
+    
+    st.markdown("---")
     
     # Display tools in grid
     cols = st.columns(3)
