@@ -1,4 +1,0 @@
-[build]
-  publish = "."
-
-# No redirects - serve the landing page directly

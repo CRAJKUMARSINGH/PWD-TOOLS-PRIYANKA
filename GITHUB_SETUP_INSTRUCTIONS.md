@@ -84,6 +84,7 @@ A complete video tutorial script is available in `VIDEO_GUIDE_SCRIPT.md`:
 |----------|--------|-----|
 | **Streamlit Cloud** | ✅ Live | https://pwd-tools-priyanka.streamlit.app |
 | **Netlify Landing** | ✅ Live | https://pwd-tools-priyanka.netlify.app |
+| **Hindi Bill Note** | ✅ Live | https://hindibillnote.netlify.app/ |
 | **GitHub Repo** | ✅ Updated | https://github.com/CRAJKUMARSINGH/PWD-TOOLS-PRIYANKA |
 
 ## 🎯 What Users Will See

@@ -10,7 +10,8 @@
 ## 🌟 Quick Access
 
 **🚀 Live App:** https://pwd-tools-priyanka.streamlit.app  
-**📄 Landing Page:** https://pwd-tools-priyanka.netlify.app
+**📄 Landing Page:** https://pwd-tools-priyanka.netlify.app  
+**📝 Hindi Bill Note Sheet:** https://hindibillnote.netlify.app/ (Complete interactive app)
 
 ## ✨ Features
 
@@ -135,8 +136,15 @@ PWD-Tools-Suite/
 - ✅ Auto-updates from GitHub
 - ✅ Free forever
 - 📍 Deploy at: https://share.streamlit.io
+- 🔗 Live: https://pwd-tools-priyanka.streamlit.app
 
-### 2. Local Server
+### 2. Netlify (For Static/HTML Apps)
+- ✅ Landing page deployed
+- ✅ Hindi Bill Note Sheet (complete interactive app)
+- 🔗 Landing: https://pwd-tools-priyanka.netlify.app
+- 🔗 Hindi App: https://hindibillnote.netlify.app/
+
+### 3. Local Server
 - Run on your computer
 - Access on local network
 - Full control
