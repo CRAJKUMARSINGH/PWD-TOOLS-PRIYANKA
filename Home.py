@@ -54,7 +54,6 @@ st.markdown("""
     .tool-card:hover {
         transform: translateY(-8px) scale(1.03);
         box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
-        background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
     }
     
     .tool-card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -139,17 +138,16 @@ with col4:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # Instructions
-st.info("👈 **Select a tool from the sidebar to get started!**")
+st.info("👇 **Click any Launch button below to start using a tool!**")
 
 st.markdown("---")
-
-# Tool categories
 st.markdown("## 🔧 Available Tools")
 
+# Tool data
 tools_data = [
-    ("1__Bill_Generator", "🏗️", "Bill Generator Enterprise", "Complete bill package with all documents and PDFs"),
-    ("2__Excel_to_EMD", "📊", "Excel to EMD", "Generate EMD receipts from Excel (batch processing)"),
-    ("3__EMD_Refund", "💸", "EMD Refund Calculator", "Calculate EMD refunds with penalties"),
+    ("1__Bill_Generator", "🏗️", "Bill Generator", "Complete bill package with all documents and PDFs"),
+    ("2__Excel_to_EMD", "📊", "Excel to EMD", "Generate EMD receipts from Excel"),
+    ("3__EMD_Refund", "💸", "EMD Refund", "Calculate EMD refunds with penalties"),
     ("4__Security_Refund", "🔒", "Security Refund", "Security deposit refund calculator"),
     ("5__Bill_Note_Sheet", "📝", "Bill Note Sheet", "Generate bill note sheets with LD calculation"),
     ("6__Deductions_Table", "➖", "Deductions Table", "Calculate TDS and security deductions"),
@@ -159,7 +157,7 @@ tools_data = [
     ("10__Stamp_Duty", "⚖️", "Stamp Duty", "Calculate stamp duty for documents"),
     ("11__Hand_Receipt", "🧾", "Hand Receipt", "Generate RPWA 28 compliant hand receipts"),
     ("12__User_Manual", "📖", "User Manual", "Bilingual user manual (English/Hindi)"),
-    ("13_ℹ_Main_Info", "ℹ️", "Main BAT Info", "Information about launcher program"),
+    ("13_ℹ_Main_Info", "ℹ️", "Main Info", "Information about launcher program"),
 ]
 
 # Display tools in grid with working buttons
@@ -184,7 +182,7 @@ for idx, (page_name, icon, name, desc) in enumerate(tools_data):
         """, unsafe_allow_html=True)
         
         # Add clickable button
-        if st.button(f"Launch {name}", key=f"launch_{page_name}", use_container_width=True):
+        if st.button(f"🚀 Launch", key=f"launch_{page_name}", use_container_width=True):
             st.switch_page(f"pages/{page_name}.py")
 
 # Footer
