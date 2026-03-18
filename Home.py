@@ -73,6 +73,27 @@ st.markdown("""
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #f5f7fa 0%, #e8ecf1 100%);
     }
+    
+    .stButton>button {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        color: #667eea;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 10px;
+        padding: 12px 24px;
+        font-weight: 700;
+        font-size: 1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .stButton>button:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        border-color: transparent;
+    }
 </style>
 """, unsafe_allow_html=True)
 
