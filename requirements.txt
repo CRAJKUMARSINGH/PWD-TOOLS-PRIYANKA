@@ -4,7 +4,7 @@ numpy
 openpyxl
 xlrd
 python-dateutil
-xhtml2pdf
+reportlab
 python-docx
 Jinja2
 Pillow

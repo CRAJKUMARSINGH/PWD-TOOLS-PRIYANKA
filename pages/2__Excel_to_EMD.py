@@ -21,7 +21,8 @@ except ImportError:
     has_utils = False
 
 try:
-    from xhtml2pdf import pisa
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import A4
     has_weasyprint = True
 except ImportError:
     has_weasyprint = False
@@ -243,12 +244,26 @@ def main():
                                 # Generate HTML
                                 rendered_html = receipt_template.render(receipts=receipts)
                                 
-                                # Generate PDF if xhtml2pdf available
+                                # Generate PDF if reportlab available
                                 if has_weasyprint:
+                                    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+                                    from reportlab.lib.styles import getSampleStyleSheet
                                     from io import BytesIO
-                                    result = BytesIO()
-                                    pisa.CreatePDF(BytesIO(rendered_html.encode('utf-8')), dest=result)
-                                    pdf_bytes = result.getvalue()
+                                    
+                                    buffer = BytesIO()
+                                    doc = SimpleDocTemplate(buffer, pagesize=A4)
+                                    styles = getSampleStyleSheet()
+                                    story = []
+                                    
+                                    # Convert HTML to reportlab elements (simplified)
+                                    from html.parser import HTMLParser
+                                    story.append(Paragraph("Hand Receipts", styles['Title']))
+                                    for receipt in receipts:
+                                        story.append(Paragraph(f"Receipt No: {receipt.get('receipt_no', 'N/A')}", styles['Normal']))
+                                        story.append(Spacer(1, 12))
+                                    
+                                    doc.build(story)
+                                    pdf_bytes = buffer.getvalue()
                                     
                                     st.success("✅ PDF generated successfully!")
                                     st.balloons()
