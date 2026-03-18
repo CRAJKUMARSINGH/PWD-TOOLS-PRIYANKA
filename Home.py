@@ -147,24 +147,24 @@ st.markdown("---")
 st.markdown("## 🔧 Available Tools")
 
 tools_data = [
-    ("🏗️", "Bill Generator Enterprise", "Complete bill package with all documents and PDFs"),
-    ("📊", "Excel to EMD", "Generate EMD receipts from Excel (batch processing)"),
-    ("💸", "EMD Refund Calculator", "Calculate EMD refunds with penalties"),
-    ("🔒", "Security Refund", "Security deposit refund calculator"),
-    ("📝", "Bill Note Sheet", "Generate bill note sheets with LD calculation"),
-    ("➖", "Deductions Table", "Calculate TDS and security deductions"),
-    ("📈", "Financial Progress", "Track financial progress of projects"),
-    ("🧮", "APG Calculator", "50% of savings beyond -15% below G-Schedule"),
-    ("⏱️", "Delay Calculator", "Calculate project delays and extensions"),
-    ("⚖️", "Stamp Duty", "Calculate stamp duty for documents"),
-    ("🧾", "Hand Receipt", "Generate RPWA 28 compliant hand receipts"),
-    ("📖", "User Manual", "Bilingual user manual (English/Hindi)"),
-    ("ℹ️", "Main BAT Info", "Information about launcher program"),
+    ("1__Bill_Generator", "🏗️", "Bill Generator Enterprise", "Complete bill package with all documents and PDFs"),
+    ("2__Excel_to_EMD", "📊", "Excel to EMD", "Generate EMD receipts from Excel (batch processing)"),
+    ("3__EMD_Refund", "💸", "EMD Refund Calculator", "Calculate EMD refunds with penalties"),
+    ("4__Security_Refund", "🔒", "Security Refund", "Security deposit refund calculator"),
+    ("5__Bill_Note_Sheet", "📝", "Bill Note Sheet", "Generate bill note sheets with LD calculation"),
+    ("6__Deductions_Table", "➖", "Deductions Table", "Calculate TDS and security deductions"),
+    ("7__Financial_Progress", "📈", "Financial Progress", "Track financial progress of projects"),
+    ("8__APG_Calculator", "🧮", "APG Calculator", "50% of savings beyond -15% below G-Schedule"),
+    ("9__Delay_Calculator", "⏱️", "Delay Calculator", "Calculate project delays and extensions"),
+    ("10__Stamp_Duty", "⚖️", "Stamp Duty", "Calculate stamp duty for documents"),
+    ("11__Hand_Receipt", "🧾", "Hand Receipt", "Generate RPWA 28 compliant hand receipts"),
+    ("12__User_Manual", "📖", "User Manual", "Bilingual user manual (English/Hindi)"),
+    ("13_ℹ_Main_Info", "ℹ️", "Main BAT Info", "Information about launcher program"),
 ]
 
-# Display tools in grid
+# Display tools in grid with working buttons
 cols = st.columns(3)
-for idx, (icon, name, desc) in enumerate(tools_data):
+for idx, (page_name, icon, name, desc) in enumerate(tools_data):
     with cols[idx % 3]:
         st.markdown(f"""
         <div class="tool-card tool-card-{idx+1}">
@@ -177,11 +177,15 @@ for idx, (icon, name, desc) in enumerate(tools_data):
                 {name}
             </div>
             <div style="font-size: 0.95rem; color: rgba(255,255,255,0.95); text-align: center; 
-                        min-height: 60px; line-height: 1.6;">
+                        min-height: 60px; line-height: 1.6; margin-bottom: 15px;">
                 {desc}
             </div>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Add clickable button
+        if st.button(f"Launch {name}", key=f"launch_{page_name}", use_container_width=True):
+            st.switch_page(f"pages/{page_name}.py")
 
 # Footer
 st.markdown("---")
