@@ -14,7 +14,8 @@
 
 ---
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://pwd-tools-priyanka.streamlit.app)
+[![Streamlit App](https://img.shields.io/badge/Streamlit-App-brightgreen)](https://pwd-tools-priyanka.streamlit.app)
+[![Netlify Landing](https://img.shields.io/badge/Netlify-Landing-blue)](https://pwd-tools-priyanka.netlify.app)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)]()
 [![Tools](https://img.shields.io/badge/Tools-13-blue)]()
 [![Version](https://img.shields.io/badge/Version-2.0.1-orange)]()
@@ -220,6 +221,7 @@ Proprietary - Public Works Department, Udaipur, Rajasthan
 
 **Status:** ✅ Production Ready | **Version:** 2.0.1 | **Tools:** 13
 
-**Live Demo:** https://pwd-tools-priyanka.streamlit.app
+**Live Demo:** https://pwd-tools-priyanka.streamlit.app  
+**Landing Page:** https://pwd-tools-priyanka.netlify.app
 
 Made with ❤️ for PWD Udaipur
