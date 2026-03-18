@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Hindi Bill Note Sheet"
+version = "1.0.0"
+id = "artifacts/hindi-bill"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 22021
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/hindi-bill run dev"
+
+[services.env]
+PORT = "22021"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/hindi-bill", "run", "build"]
+publicDir = "artifacts/hindi-bill/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
