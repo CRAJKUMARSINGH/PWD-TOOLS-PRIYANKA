@@ -22,8 +22,8 @@ def main():
     # Load the complete React app
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(current_dir)
-    html_file_path = os.path.join(parent_dir, "ATTACHED_ASSETS", "index.html")
-    assets_dir = os.path.join(parent_dir, "ATTACHED_ASSETS")
+    html_file_path = os.path.join(parent_dir, "hindi_bill_note_sheet_app", "index.html")
+    assets_dir = os.path.join(parent_dir, "hindi_bill_note_sheet_app")
     
     try:
         # Read the main HTML file

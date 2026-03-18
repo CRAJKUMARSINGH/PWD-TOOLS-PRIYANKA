@@ -62,9 +62,10 @@ NETLIFY_UPDATE/
 netlify_redirect/
 netlify_landing/
 TEST_INPUT_FILES/
+ATTACHED_ASSETS/
 
-# Keep ATTACHED_ASSETS - it contains the Hindi Bill Note Sheet app
-# !ATTACHED_ASSETS/
+# Keep hindi_bill_note_sheet_app - it contains the integrated React app
+# !hindi_bill_note_sheet_app/
 
 # Temporary files
 *.tmp
