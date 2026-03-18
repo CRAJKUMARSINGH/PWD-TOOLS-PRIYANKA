@@ -1,12 +1,10 @@
-# Netlify configuration for PWD Tools Suite
+# Netlify configuration - Static Landing Page Only
+# For Streamlit app, use Streamlit Cloud
+
 [build]
-  command = "pip install -r requirements.txt"
   publish = "."
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  PYTHON_VERSION = "3.11"

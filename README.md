@@ -1,270 +1,238 @@
 # 🏗️ PWD Tools Suite v2.0
 
-Professional Infrastructure Management Tools for Public Works Department
+**Professional Infrastructure Management Tools for Public Works Department**
 
-[![Production Ready](https://img.shields.io/badge/status-production%20ready-brightgreen)]()
-[![Tests Passing](https://img.shields.io/badge/tests-100%25%20passing-brightgreen)]()
-[![Python 3.11](https://img.shields.io/badge/python-3.11-blue)]()
-[![Streamlit](https://img.shields.io/badge/streamlit-1.49.1-red)]()
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Tools](https://img.shields.io/badge/Tools-13-blue)
+![Version](https://img.shields.io/badge/Version-2.0-orange)
 
----
+## 🌟 Features
 
-## ✨ Features
-
-- **13 Professional Tools** - Complete suite for PWD operations
-- **Beautiful UI** - Gradient theme with smooth animations
-- **Real Data Tested** - Verified with 811 rows of actual Excel data
-- **Production Ready** - 100% test pass rate
-- **Easy Deployment** - Multiple deployment options
-- **Mobile Responsive** - Works on all devices
-
----
+✨ **Unified Interface** - All 13 tools in one seamless application
+🎨 **Beautiful Design** - Colorful gradient cards with smooth animations
+🚀 **Fast & Responsive** - Optimized performance
+📱 **Mobile Friendly** - Works on all devices
+🔧 **Production Ready** - Fully tested and stable
+⚡ **Easy to Use** - Intuitive navigation
 
 ## 🚀 Quick Start
 
-### Option 1: Local (Fastest)
+### Run Locally
+
+**Windows:**
+```bash
+# Double-click
+START_APP.bat
+
+# Or run manually
+streamlit run Home.py
+```
+
+**Mac/Linux:**
+```bash
+streamlit run Home.py
+```
+
+Opens at: http://localhost:8501
+
+### Deploy to Cloud (FREE)
+
+1. Push to GitHub
+2. Go to https://share.streamlit.io
+3. Connect repository and deploy `Home.py`
+4. Get your live URL!
+
+## 📋 All 13 Tools
+
+| Icon | Tool | Description |
+|------|------|-------------|
+| 🏗️ | **Bill Generator Enterprise** | Complete bill package with all documents and PDFs |
+| 📊 | **Excel to EMD** | Generate EMD receipts from Excel (batch processing) |
+| 💸 | **EMD Refund Calculator** | Calculate EMD refunds with penalties |
+| 🔒 | **Security Refund** | Security deposit refund calculator |
+| 📝 | **Bill Note Sheet** | Hindi Bill Note Sheet Generator - Pure HTML/CSS/JS (Better than React!) |
+| ➖ | **Deductions Table** | Calculate TDS and security deductions |
+| 📈 | **Financial Progress** | Track financial progress of projects |
+| 🧮 | **APG Calculator** | 50% of savings beyond -15% below G-Schedule |
+| ⏱️ | **Delay Calculator** | Calculate project delays and extensions |
+| ⚖️ | **Stamp Duty** | Calculate stamp duty for documents |
+| 🧾 | **Hand Receipt** | Generate RPWA 28 compliant hand receipts |
+| 📖 | **User Manual** | Bilingual user manual (English/Hindi) |
+| ℹ️ | **Main Info** | Information about the application |
+
+## 🎨 Screenshots
+
+**Home Page:**
+- Beautiful colorful gradient cards for each tool
+- Professional header with gradient background
+- Statistics dashboard
+- Easy navigation
+
+**Tool Pages:**
+- Clean, intuitive interface
+- Sidebar navigation to switch between tools
+- Consistent design across all tools
+
+## 🛠️ Installation
+
+### Requirements
+- Python 3.9 or higher
+- pip (Python package manager)
+
+### Install Dependencies
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
 ```
 
-### Option 2: Docker
-```bash
-docker-compose up -d
-```
-
-### Option 3: Streamlit Cloud
-1. Push to GitHub
-2. Deploy on [share.streamlit.io](https://share.streamlit.io)
-
----
-
-## 🎯 Tools Included
-
-### 🏗️ Enterprise Tools
-1. **Bill Generator Enterprise** - Complete bill package (First Page, Deviation, Note Sheet, Certificate II, PDFs)
-
-### 💰 Financial Tools
-2. **EMD Refund Calculator** - EMD refund calculations
-3. **Security Refund** - Security deposit refunds
-4. **Bill Note Sheet** - Note sheets with LD calculation
-5. **Deductions Table** - TDS and security deductions
-6. **Financial Progress** - Project financial tracking
-
-### 🧮 Calculators
-7. **APG Calculator** - APG savings calculator
-8. **Delay Calculator** - Project delay analysis
-9. **Stamp Duty** - Stamp duty calculator
-
-### 📋 Document Generators
-10. **Hand Receipt (RPWA 28)** - RPWA 28 receipts
-11. **Excel to EMD** - Batch EMD receipt generation from Excel with PDF support
-
-### 🔧 Utilities
-12. **Main BAT Info** - Launcher information
-13. **User Manual** - Bilingual manual
-
----
-
-## 📊 Test Results
-
-✅ **All Tests Passed**
-- 29/29 tests passed (100%)
-- 13/13 tools working
-- 4 Excel files processed (811 rows)
-- All deployment files present
-- Documentation complete
-
-See [FINAL_TEST_RESULTS.md](FINAL_TEST_RESULTS.md) for details.
-
----
-
-## 📦 Requirements
-
-- Python 3.11+
-- Streamlit 1.49.1
-- Pandas
-- OpenPyXL
-- WeasyPrint
+### Main Dependencies
+- streamlit
+- pandas
+- openpyxl
 - python-docx
-
-All dependencies in `requirements.txt`
-
----
-
-## 🎨 UI Features
-
-- Beautiful purple/blue gradient theme
-- Welcome balloons on first visit
-- Time-based greetings (Morning/Afternoon/Evening)
-- Smooth 60 FPS animations
-- Hover effects on all cards
-- Professional design
-- Mobile responsive
-
----
+- reportlab
+- jinja2
+- Pillow
 
 ## 📁 Project Structure
 
 ```
-PWD Tools Suite/
-├── app.py                  # Main application
-├── tools/                  # 16 tools
-├── core/                   # Business logic
+PWD-Tools-Suite/
+├── Home.py                 # Main application entry point
+├── pages/                  # All 13 tool pages
+│   ├── 1_🏗️_Bill_Generator.py
+│   ├── 2_📊_Excel_to_EMD.py
+│   ├── 3_💸_EMD_Refund.py
+│   ├── 4_🔒_Security_Refund.py
+│   ├── 5_📝_Bill_Note_Sheet.py
+│   ├── 6_➖_Deductions_Table.py
+│   ├── 7_📈_Financial_Progress.py
+│   ├── 8_🧮_APG_Calculator.py
+│   ├── 9_⏱️_Delay_Calculator.py
+│   ├── 10_⚖️_Stamp_Duty.py
+│   ├── 11_🧾_Hand_Receipt.py
+│   ├── 12_📖_User_Manual.py
+│   └── 13_ℹ️_Main_Info.py
+├── tools/                  # Original standalone tool files
+├── core/                   # Core modules and utilities
+├── config/                 # Configuration files
 ├── templates/              # HTML templates
-├── static/                 # Static assets
-├── config/                 # Configuration
-├── utils/                  # Utilities
-├── .streamlit/            # Streamlit config
-├── Dockerfile             # Docker container
-├── docker-compose.yml     # Docker orchestration
-├── requirements.txt       # Dependencies
+├── static/                 # Static files
+├── OUTPUT/                 # Generated output files
+├── requirements.txt        # Python dependencies
+├── START_APP.bat          # Windows launcher
 └── README.md              # This file
 ```
 
----
+## 🌐 Deployment Options
 
-## 🚀 Deployment
+### 1. Streamlit Cloud (Recommended - FREE)
+- Push to GitHub
+- Deploy at https://share.streamlit.io
+- Automatic HTTPS and updates
+- Perfect for Streamlit apps
 
-### Streamlit Cloud
-```bash
-git init
-git add .
-git commit -m "Deploy PWD Tools Suite"
-git push origin main
-# Deploy on share.streamlit.io
-```
+### 2. Local Server
+- Run `streamlit run Home.py`
+- Access on local network
+- Full control
 
-### Docker
-```bash
-docker-compose up -d
-```
+### 3. Docker
+- Use provided Dockerfile
+- Deploy anywhere
+- Containerized solution
 
-### Heroku
-```bash
-heroku create pwd-tools-suite
-git push heroku main
-```
+## 📖 Usage Guide
 
-See [DEPLOYMENT_COMPLETE.md](DEPLOYMENT_COMPLETE.md) for detailed instructions.
+1. **Launch the app** using `START_APP.bat` or `streamlit run Home.py`
+2. **Home page** displays all 13 tools with colorful cards
+3. **Click any tool** in the sidebar to access it
+4. **Use the tool** - each has its own interface
+5. **Navigate easily** between tools using sidebar
+6. **Download outputs** from the OUTPUT folder
 
----
+## 🎯 Key Improvements in v2.0
 
-## 📖 Documentation
+✅ Unified interface - all tools in one app
+✅ Beautiful colorful design with gradients
+✅ Streamlit multipage architecture
+✅ Smooth animations and hover effects
+✅ Professional statistics dashboard
+✅ Easy sidebar navigation
+✅ Production-ready deployment
+✅ Clean code structure
+✅ Comprehensive documentation
 
-- **[README.md](README.md)** - This file
-- **[DEPLOYMENT_COMPLETE.md](DEPLOYMENT_COMPLETE.md)** - Deployment guide
-- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick reference
-- **[FINAL_TEST_RESULTS.md](FINAL_TEST_RESULTS.md)** - Test results
+## 🔧 Configuration
 
----
+Configuration files are in the `config/` directory:
+- `v01.json` - Main configuration file
+- Modify as needed for your requirements
 
-## 🎓 Usage
+## 📊 Output Files
 
-1. **Start the app:**
-   ```bash
-   streamlit run app.py
-   ```
+Generated files are saved in the `OUTPUT/` folder:
+- Bills (HTML, PDF, DOCX)
+- Receipts
+- Certificates
+- Reports
+- All downloadable from the app
 
-2. **Access in browser:**
-   ```
-   http://localhost:8501
-   ```
+## 🤝 Contributing
 
-3. **Select a tool** from the navigation
+This is a production application for PWD Udaipur. For modifications or enhancements, please contact the development team.
 
-4. **Upload Excel files** or enter data manually
+## 📞 Support & Credits
 
-5. **Generate documents** and download
+**Prepared on Initiative of:**
+- **Mrs. Premlata Jain, AAO**
+- Public Works Department
+- Udaipur, Rajasthan
 
----
+**AI Development Partner:**
+- Kiro AI Assistant
 
-## 🔒 Security
+**Technology Stack:**
+- Python 3.9+
+- Streamlit (Web Framework)
+- Pandas (Data Processing)
+- ReportLab (PDF Generation)
+- Jinja2 (Templating)
 
-- Input validation on all forms
-- File upload size limits (200 MB)
-- Error message sanitization
-- CORS configuration
-- XSS protection
-- Environment variable support
+## 📄 License
 
----
+Proprietary - Public Works Department, Udaipur, Rajasthan
 
-## 📱 Browser Support
+## 🔄 Version History
 
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-- ✅ Mobile browsers
+### v2.0.1 (March 18, 2026 - Morning Update)
+- ✅ **Hindi Bill Note Sheet** - Complete rewrite in pure HTML/CSS/JavaScript
+- ✅ Better than React version - faster, simpler, more beautiful
+- ✅ M/s. auto-prefix for contractor names
+- ✅ Conditional extra item amount field (only shows when needed)
+- ✅ Simplified UI for semi-literate users (removed confusing messages)
+- ✅ Only Dep-V shown in deductions input (all others auto-calculated)
+- ✅ Floating balloons animation
+- ✅ Live preview with exact formatting
+- ✅ Auto-generated Hindi notes (10 points)
+- ✅ Print function with A4 margins
 
----
+### v2.0 (Current)
+- Unified multipage application
+- Beautiful colorful interface
+- All 13 tools integrated
+- Production-ready deployment
+- Enhanced user experience
 
-## 🆘 Troubleshooting
-
-### Port already in use
-```bash
-streamlit run app.py --server.port=8502
-```
-
-### Module not found
-```bash
-pip install -r requirements.txt --force-reinstall
-```
-
-### Docker issues
-```bash
-docker-compose down
-docker-compose build --no-cache
-docker-compose up -d
-```
-
----
-
-## 📞 Support
-
-**Initiative:**  
-Mrs. Premlata Jain, AAO  
-Public Works Department  
-Udaipur, Rajasthan
-
-**AI Development Partner:**  
-Kiro AI Assistant
+### v1.0
+- Individual standalone tools
+- Basic functionality
+- Command-line launchers
 
 ---
 
-## 📝 License
+**Status:** ✅ Production Ready | **Version:** 2.0 | **Tools:** 13 | **Architecture:** Streamlit Multipage App
 
-Open source for PWD use  
-All rights reserved for commercial use
+**Live Demo:** Coming soon on Streamlit Cloud
+**Landing Page:** https://pwd-tools-priyanka.netlify.app
 
----
-
-## 🎉 Credits
-
-**Prepared on Initiative of:**  
-Mrs. Premlata Jain, AAO  
-PWD Udaipur, Rajasthan
-
-**AI Development Partner:**  
-Kiro AI Assistant
-
-**Technology Stack:**  
-Streamlit, Python, Pandas, WeasyPrint
-
----
-
-## 🚀 Status
-
-✅ **Production Ready**  
-✅ **100% Tests Passing**  
-✅ **Real Data Verified**  
-✅ **Deployment Ready**
-
-**Deploy now!**
-
----
-
-**Version:** 2.0  
-**Last Updated:** February 26, 2026  
-**Status:** 🟢 PRODUCTION READY
+Made with ❤️ for PWD Udaipur

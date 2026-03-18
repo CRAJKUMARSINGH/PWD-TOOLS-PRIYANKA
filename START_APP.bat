@@ -1,9 +1,9 @@
 @echo off
 echo ========================================
-echo PWD Tools Suite - Starting Application
+echo PWD Tools Suite - Unified Application
 echo ========================================
 echo.
-echo Initializing beautiful UI...
+echo Starting PWD Tools Suite...
+echo All 13 tools will be available in the sidebar
 echo.
-timeout /t 2 /nobreak >nul
-streamlit run app.py
+streamlit run Home.py

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Hindi Bill Note Sheet Generator - हिंदी बिल नोट शीट जनरेटर</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Header with shimmer animation */
+.header {
+  position: relative;
+  background: linear-gradient(90deg, #880e4f, #c2185b, #e91e63, #c2185b, #880e4f);
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+  overflow: hidden;
+  padding: 14px 0;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Floating balloons */
+.balloons-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.balloon {
+  position: absolute;
+  bottom: 0;
+}
+
+.balloon-shape {
+  width: 28px;
+  height: 34px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: inset -4px -4px 8px rgba(0,0,0,0.2), inset 4px 4px 8px rgba(255,255,255,0.3);
+  position: relative;
+}
+
+.balloon-knot {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 0 0 50% 50%;
+}
+
+.balloon-string {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.5);
+  margin: 0 auto;
+}
+
+@keyframes floatBalloon {
+  0% { transform: translateY(0px) rotate(-4deg); }
+  50% { transform: translateY(-18px) rotate(4deg); }
+  100% { transform: translateY(0px) rotate(-4deg); }
+}
+
+/* Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.column {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Section styling */
+.section-header {
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+  border: 1px solid #f48fb1;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #880e4f;
+}
+
+.section-subtitle {
+  font-size: 0.75rem;
+  color: #c2185b;
+  margin-top: 4px;
+}
+
+.section {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #f48fb1;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.section h3 {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #880e4f;
+  border-bottom: 1px solid #f48fb1;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+/* Form elements */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #880e4f;
+  margin-bottom: 4px;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  border: 1px solid #f48fb1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: white;
+  transition: all 0.2s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #e91e63;
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Warning/Success messages */
+.warning {
+  color: #d32f2f;
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-left: 4px;
+}
+
+.success {
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+.error {
+  color: #d32f2f;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+/* Print button */
+.print-button {
+  width: 100%;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  background: linear-gradient(90deg, #880e4f, #e91e63, #880e4f);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(136, 14, 79, 0.3);
+  transition: transform 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.print-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(136, 14, 79, 0.4);
+}
+
+.print-button:active {
+  transform: translateY(0);
+}
+
+/* Preview table */
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #666;
+  font-size: 0.75rem;
+}
+
+.preview-table td {
+  border: 1px solid #666;
+  padding: 6px 8px;
+  vertical-align: top;
+}
+
+.preview-table .header-cell {
+  text-align: center;
+  font-weight: 700;
+  padding: 8px;
+  background: #fce4ec;
+  color: #880e4f;
+  font-size: 0.875rem;
+}
+
+.preview-table .label-cell {
+  font-weight: 600;
+  background: #f5f5f5;
+  width: 50%;
+}
+
+.preview-table .value-cell {
+  width: 50%;
+}
+
+.preview-table .deduction-header {
+  font-weight: 700;
+  background: #ebebeb;
+}
+
+.preview-table .deduction-label {
+  padding-left: 24px;
+}
+
+/* Note section */
+.note-section {
+  border: 1px solid #666;
+  border-top: none;
+  padding: 12px;
+  background: white;
+}
+
+.note-section ol {
+  list-style: none;
+  padding: 0;
+}
+
+.note-section li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+  font-size: 0.75rem;
+}
+
+.signatory {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 16px;
+  font-size: 0.75rem;
+}
+
+/* Print styles */
+@media print {
+  @page { 
+    size: A4 portrait; 
+    margin: 10mm;
+  }
+  body {
+    background: white;
+  }
+  .header, .section-header, .print-button, .column:first-child {
+    display: none !important;
+  }
+  .container {
+    display: block;
+  }
+  .column {
+    width: 100%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .container {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header with balloons -->
+<div class="header">
+  <div class="balloons-container" id="balloons"></div>
+  <div style="position: relative; z-index: 1;">
+    🌸 हिंदी बिल नोट शीट जनरेटर &nbsp;|&nbsp; Hindi Bill Note Sheet Generator 🌸
+  </div>
+</div>
+
+<div class="container">
+  <!-- INPUT FORM -->
+  <div class="column">
+    <div class="section-header">
+      <div class="section-title">📝 इनपुट फॉर्म / Input Form — Bill Details</div>
+      <div class="section-subtitle">विवरण भरें, नोट शीट स्वतः अपडेट होगी / Fill details, note sheet updates automatically</div>
+    </div>
+
+    <!-- Basic Information -->
+    <div class="section">
+      <h3>मूल जानकारी / Basic Information</h3>
+      
+      <div class="form-group">
+        <label class="form-label">बिल शीर्षक / Bill Title</label>
+        <input type="text" id="billTitle" class="form-input" value="RUNNING/FINAL BILL SCRUTINY SHEET">
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">1. बजट शीर्ष / Budget Head</label>
+          <input type="text" id="budgetHead" class="form-input" value="8443-00-108-00-00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">2. अनुबंध संख्या / Agreement No.</label>
+          <input type="text" id="agreementNo" class="form-input" placeholder="e.g. 62/2024-25">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">3. एम.बी. संख्या व पृष्ठ / MB No. & Page</label>
+          <input type="text" id="mbNo" class="form-input" placeholder="e.g. 813/Page 84-85">
+        </div>
+        <div class="form-group">
+          <label class="form-label">4. उप-खंड का नाम / Sub Division Name</label>
+          <input type="text" id="subDivision" class="form-input" placeholder="e.g. Udaipur">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">5. कार्य का नाम / Name of Work</label>
+        <textarea id="nameOfWork" class="form-textarea"></textarea>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">6. ठेकेदार का नाम / Contractor Name</label>
+          <input type="text" id="nameOfContractor" class="form-input" placeholder="M/s. ...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">7. मूल / जमा / Original / Deposit</label>
+          <select id="originalOrDeposit" class="form-select">
+            <option>Original</option>
+            <option selected>Deposit</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dates & Amounts -->
+    <div class="section">
+      <h3>तिथियाँ व राशि / Dates & Amounts</h3>
+      
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">8. प्रारंभ तिथि / Date of Commencement</label>
+          <input type="date" id="dateOfCommencement" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">9. पूर्णता तिथि (निर्धारित) / Date of Completion</label>
+          <input type="date" id="dateOfCompletion" class="form-input">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">10. वास्तविक पूर्णता तिथि / Actual Completion Date</label>
+          <input type="date" id="actualDateOfCompletion" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            बिल प्रस्तुति तिथि / Bill Submission Date
+            <span id="lateWarning" class="warning" style="display:none;">⚠️ &gt;180 days</span>
+          </label>
+          <input type="date" id="dateOfBillSubmission" class="form-input">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">11. कुल कार्यादेश राशि / Total Work Order Amount (₹)</label>
+          <input type="number" id="totalWorkOrderAmount" class="form-input" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">12A. पिछले बिल तक भुगतान / Payment Upto Last Bill (₹)</label>
+          <input type="number" id="sumPaymentLastBill" class="form-input" value="0">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">12B. इस बिल की राशि / Amount of This Bill (₹)</label>
+          <input type="number" id="amountThisBill" class="form-input" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">15. माप तिथि / Date of Measurement (JEN/AEN)</label>
+          <input type="date" id="dateOfMeasurement" class="form-input">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Conditions & Flags -->
+    <div class="section">
+      <h3>शर्तें / Conditions & Flags</h3>
+      
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">(A) मरम्मत/रखरखाव कार्य? / Repair/Maintenance Work?</label>
+          <select id="isRepairMaintenance" class="form-select">
+            <option>Yes</option>
+            <option selected>No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">(B) अतिरिक्त मद? / Extra Item Executed?</label>
+          <select id="hasExtraItem" class="form-select">
+            <option>Yes</option>
+            <option selected>No</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="extraItemSection" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">अतिरिक्त मद राशि / Extra Items Amount (₹)</label>
+          <input type="number" id="extraItemAmount" class="form-input" value="0">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">(C) अधिक मात्रा? / Any Excess Quantity?</label>
+        <select id="hasExcessItem" class="form-select">
+          <option>Yes</option>
+          <option selected>No</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Deductions -->
+    <div class="section">
+      <h3>कटौतियाँ / Deductions</h3>
+      
+      <div class="form-group">
+        <label class="form-label">Dep-V (₹) [अन्य कटौतियाँ स्वचालित / Other deductions automated]</label>
+        <input type="number" id="depV" class="form-input" value="0">
+      </div>
+    </div>
+
+    <!-- Other Details -->
+    <div class="section">
+      <h3>अन्य विवरण / Other Details</h3>
+      
+      <div class="form-group">
+        <label class="form-label">16. जाँच तिथि व % (AEN) / Checking Date & % by AEN</label>
+        <input type="text" id="checkingDateAEN" class="form-input" placeholder="e.g. 01/03/2025, 100%">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">17. EE द्वारा जाँची गई मदें / Selection Items Checked by EE</label>
+        <input type="text" id="selectionItemsCheckedEE" class="form-input" placeholder="(optional)">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">18. अन्य इनपुट / Other Inputs</label>
+        <input type="text" id="otherInputs" class="form-input" placeholder="(optional)">
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">हस्ताक्षरकर्ता नाम / Signatory Name</label>
+          <input type="text" id="signatoryName" class="form-input" value="प्रेमलता जैन, AAO">
+        </div>
+        <div class="form-group">
+          <label class="form-label">कार्यालय नाम / Office Name</label>
+          <input type="text" id="officeName" class="form-input" value="PWD Electric Circle, Udaipur">
+        </div>
+      </div>
+    </div>
+
+    <button class="print-button" onclick="printNoteSheet()">
+      🖨️ Print Note Sheet (A4 — no header/footer)
+    </button>
+  </div>
+
+  <!-- LIVE PREVIEW -->
+  <div class="column">
+    <div class="section-header">
+      <div class="section-title">👁 Live Preview — Note Sheet Output</div>
+      <div class="section-subtitle">Exactly what will print on A4 with 10 mm margins.</div>
+    </div>
+
+    <div id="preview"></div>
+  </div>
+</div>
+
+<script>
+// Balloon configuration
+const BALLOONS = [
+  { color: "#ff69b4", left: "5%",  delay: "0s",   dur: "4s"  },
+  { color: "#c2185b", left: "15%", delay: "0.6s", dur: "3.5s" },
+  { color: "#ff1493", left: "28%", delay: "1.2s", dur: "5s"  },
+  { color: "#ad1457", left: "42%", delay: "0.3s", dur: "4.2s" },
+  { color: "#f48fb1", left: "57%", delay: "0.9s", dur: "3.8s" },
+  { color: "#e91e63", left: "70%", delay: "1.5s", dur: "4.6s" },
+  { color: "#880e4f", left: "83%", delay: "0.5s", dur: "3.2s" },
+  { color: "#ff80ab", left: "93%", delay: "1.1s", dur: "4.8s" },
+];
+
+// Create balloons
+function createBalloons() {
+  const container = document.getElementById('balloons');
+  BALLOONS.forEach(b => {
+    const balloon = document.createElement('div');
+    balloon.className = 'balloon';
+    balloon.style.left = b.left;
+    balloon.style.animation = `floatBalloon ${b.dur} ${b.delay} ease-in-out infinite`;
+    
+    balloon.innerHTML = `
+      <div class="balloon-shape" style="background: ${b.color};">
+        <div class="balloon-knot" style="background: ${b.color};"></div>
+      </div>
+      <div class="balloon-string"></div>
+    `;
+    
+    container.appendChild(balloon);
+  });
+}
+
+// Format date
+function formatDate(dateStr) {
+  if (!dateStr) return "---";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("en-IN", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+
+// Calculate days between dates
+function daysBetween(d1, d2) {
+  if (!d1 || !d2) return 0;
+  return Math.round((new Date(d2) - new Date(d1)) / (1000 * 60 * 60 * 24));
+}
+
+// Get form values
+function getFormData() {
+  return {
+    billTitle: document.getElementById('billTitle').value,
+    budgetHead: document.getElementById('budgetHead').value,
+    agreementNo: document.getElementById('agreementNo').value,
+    mbNo: document.getElementById('mbNo').value,
+    subDivision: document.getElementById('subDivision').value,
+    nameOfWork: document.getElementById('nameOfWork').value,
+    nameOfContractor: document.getElementById('nameOfContractor').value,
+    originalOrDeposit: document.getElementById('originalOrDeposit').value,
+    dateOfCommencement: document.getElementById('dateOfCommencement').value,
+    dateOfCompletion: document.getElementById('dateOfCompletion').value,
+    actualDateOfCompletion: document.getElementById('actualDateOfCompletion').value,
+    totalWorkOrderAmount: document.getElementById('totalWorkOrderAmount').value,
+    sumPaymentLastBill: document.getElementById('sumPaymentLastBill').value,
+    amountThisBill: document.getElementById('amountThisBill').value,
+    uptoDateBillOverride: "", // Hidden field - always empty
+    dateOfMeasurement: document.getElementById('dateOfMeasurement').value,
+    checkingDateAEN: document.getElementById('checkingDateAEN').value,
+    selectionItemsCheckedEE: document.getElementById('selectionItemsCheckedEE').value,
+    otherInputs: document.getElementById('otherInputs').value,
+    isRepairMaintenance: document.getElementById('isRepairMaintenance').value,
+    hasExtraItem: document.getElementById('hasExtraItem').value,
+    extraItemAmount: document.getElementById('extraItemAmount').value,
+    hasExcessItem: document.getElementById('hasExcessItem').value,
+    sd10: "", // Hidden field - auto-calculated only
+    it2: "", // Hidden field - auto-calculated only
+    gst2: "", // Hidden field - auto-calculated only
+    lc1: "", // Hidden field - auto-calculated only
+    depV: document.getElementById('depV').value,
+    dateOfBillSubmission: document.getElementById('dateOfBillSubmission').value,
+    signatoryName: document.getElementById('signatoryName').value,
+    officeName: document.getElementById('officeName').value,
+  };
+}
+
+// Calculate all values
+function calculate() {
+  const form = getFormData();
+  
+  const workOrderAmt = parseFloat(form.totalWorkOrderAmount) || 0;
+  const lastBillAmt = parseFloat(form.sumPaymentLastBill) || 0;
+  const thisBillAmt = parseFloat(form.amountThisBill) || 0;
+  const extraAmt = parseFloat(form.extraItemAmount) || 0;
+  
+  const overrideUpto = parseFloat(form.uptoDateBillOverride) || 0;
+  const actualExpenditure = overrideUpto > 0 ? overrideUpto : (lastBillAmt + thisBillAmt);
+  
+  const rawBalance = workOrderAmt - actualExpenditure;
+  const balanceDisplay = rawBalance < 0 ? "Nil" : `Rs. ${rawBalance.toLocaleString("en-IN")}`;
+  
+  // Deductions
+  const sd10 = form.sd10 !== "" ? parseFloat(form.sd10) : Math.round(thisBillAmt * 0.1);
+  const it2 = form.it2 !== "" ? parseFloat(form.it2) : Math.round(thisBillAmt * 0.02);
+  const rawGst = thisBillAmt * 0.02;
+  const gstCalc = Math.round(rawGst) % 2 === 0 ? Math.round(rawGst) : Math.round(rawGst) + 1;
+  const gst2 = form.gst2 !== "" ? parseFloat(form.gst2) : gstCalc;
+  const lc1 = form.lc1 !== "" ? parseFloat(form.lc1) : Math.round(thisBillAmt * 0.01);
+  const depV = parseFloat(form.depV) || 0;
+  
+  const totalDeductions = sd10 + it2 + gst2 + lc1 + depV;
+  const chequeAmount = thisBillAmt - totalDeductions;
+  const totalCheck = totalDeductions + chequeAmount;
+  
+  const progressPct = workOrderAmt > 0 ? ((actualExpenditure / workOrderAmt) * 100).toFixed(2) : "0.00";
+  const pctNum = parseFloat(progressPct);
+  const extraPct = workOrderAmt > 0 ? ((extraAmt / workOrderAmt) * 100).toFixed(2) : "0.00";
+  const extraExceeds5 = parseFloat(extraPct) > 5;
+  
+  const delayDays = daysBetween(form.dateOfCompletion, form.actualDateOfCompletion);
+  const scheduleDuration = daysBetween(form.dateOfCommencement, form.dateOfCompletion);
+  
+  const submissionDelayDays = daysBetween(form.actualDateOfCompletion, form.dateOfBillSubmission);
+  const lateSubmission = form.dateOfBillSubmission !== "" && submissionDelayDays >= 180;
+  
+  return {
+    form, workOrderAmt, lastBillAmt, thisBillAmt, extraAmt,
+    actualExpenditure, balanceDisplay,
+    sd10, it2, gst2, lc1, depV, totalDeductions, chequeAmount, totalCheck,
+    progressPct, pctNum, extraPct, extraExceeds5,
+    delayDays, scheduleDuration, submissionDelayDays, lateSubmission
+  };
+}
+
+// Generate note points (VBA-faithful logic)
+function generateNotePoints(calc) {
+  const { form, pctNum, extraAmt, extraPct, extraExceeds5, delayDays, scheduleDuration, lateSubmission, progressPct } = calc;
+  const pts = [];
+  let n = 1;
+  
+  // 1. Work completion %
+  pts.push(`${n++}. कार्य ${progressPct} प्रतिशत संपादित हुआ है।`);
+  
+  // 2. Deviation — auto based on work %
+  if (pctNum < 90) {
+    pts.push(`${n++}. जिसका डेविएशन स्टेटमेंट भी स्वीकृति हेतु प्राप्त हुआ है, जिसकी स्वीकृति इसी कार्यालय के क्षेत्राधिकार में निहित है।`);
+  } else if (pctNum > 100 && pctNum <= 105) {
+    pts.push(`${n++}. जिसका डेविएशन स्टेटमेंट भी स्वीकृति हेतु प्राप्त हुआ है, OVERALL EXCESS वर्क आर्डर राशि के 5% से कम या बराबर है जिसकी स्वीकृति इसी कार्यालय के क्षेत्राधिकार में निहित है।`);
+  } else if (pctNum > 105) {
+    pts.push(`${n++}. जिसका डेविएशन स्टेटमेंट भी स्वीकृति हेतु प्राप्त हुआ है, OVERALL EXCESS वर्क आर्डर राशि के 5% से अधिक है जिसकी स्वीकृति Superintending Engineer, ${form.officeName} कार्यालय के क्षेत्राधिकार में निहित है।`);
+  }
+  
+  // 3. Delay / on-time
+  if (delayDays > 0) {
+    pts.push(`${n++}. कार्य में ${delayDays} दिन की देरी हुई है।`);
+    // 4. Time extension authority
+    if (scheduleDuration > 0 && delayDays > scheduleDuration / 2) {
+      pts.push(`${n++}. टाइम एक्सटेंशन केस Superintending Engineer, ${form.officeName} कार्यालय द्वारा अनुमोदित किया जाना है।`);
+    } else {
+      pts.push(`${n++}. टाइम एक्सटेंशन केस इस कार्यालय द्वारा अनुमोदित किया जाना है।`);
+    }
+  } else {
+    pts.push(`${n++}. कार्य समय पर संपादित हुआ है।`);
+  }
+  
+  // 5. Extra item — triggered by flag ONLY
+  if (form.hasExtraItem === "Yes") {
+    if (extraExceeds5) {
+      pts.push(`${n++}. कार्य सम्पादन में केवल Rs. ${extraAmt.toLocaleString("en-IN")} के अतिरिक्त आइटम सम्पादित किये गये हैं जिसकी राशि वर्क आर्डर राशि की ${extraPct}% होकर 5% से अधिक है जिसकी स्वीकृति Superintending Engineer, ${form.officeName} कार्यालय के क्षेत्राधिकार में है।`);
+    } else {
+      pts.push(`${n++}. कार्य सम्पादन में केवल Rs. ${extraAmt.toLocaleString("en-IN")} के अतिरिक्त आइटम सम्पादित किये गये हैं जिसकी राशि वर्क आर्डर राशि की ${extraPct}% होकर 5% से कम या बराबर है जिसकी स्वीकृति इस कार्यालय के क्षेत्राधिकार में है।`);
+    }
+  }
+  
+  // 6. Excess quantity — based on work % directly
+  if (form.hasExcessItem === "Yes") {
+    if (pctNum < 100) {
+      pts.push(`${n++}. कार्य संपादन में वर्क आर्डर के जिन आइटम्स में EXCESS QUANTITY संपादित की गई है, उनका विवरण संलग्न है। कार्य में saving है (अर्थात Overall Excess = NIL), जिसकी स्वीकृति इस कार्यालय के क्षेत्राधिकार में है।`);
+    } else if (pctNum <= 105) {
+      const ep = (pctNum - 100).toFixed(2);
+      pts.push(`${n++}. कार्य संपादन में वर्क आर्डर के जिन आइटम्स में EXCESS QUANTITY संपादित की गई है, उनका विवरण संलग्न है। कार्य में OVERALL EXCESS केवल ${ep}% होकर 5% से कम या बराबर है, जिसकी स्वीकृति इस कार्यालय के क्षेत्राधिकार में है।`);
+    } else {
+      const ep = (pctNum - 100).toFixed(2);
+      pts.push(`${n++}. कार्य संपादन में वर्क आर्डर के जिन आइटम्स में EXCESS QUANTITY संपादित की गई है, उनका विवरण संलग्न है। कार्य में OVERALL EXCESS ${ep}% होकर 5% से अधिक है, जिसकी स्वीकृति Superintending Engineer, ${form.officeName} कार्यालय के क्षेत्राधिकार में है।`);
+    }
+  }
+  
+  // 7. QC Report — always
+  pts.push(`${n++}. गुणवत्ता नियंत्रण (Q.C.) परीक्षण रिपोर्ट संलग्न हैं।`);
+  
+  // 8. Hand Over — when NOT repair/maintenance
+  if (form.isRepairMaintenance === "No") {
+    pts.push(`${n++}. हस्तांतरण विवरण Hand Over Statement संलग्न है।`);
+  }
+  
+  // 9. Bill submission delay — AUTO from dates
+  if (lateSubmission) {
+    pts.push(`${n++}. कार्य समाप्ति के करीब 6 महीने बाद फाइनल बिल इस कार्यालय में प्रस्तुत किया गया है। इस अप्रत्याशित देरी के लिए सहायक अभियंता से स्पष्टीकरण मांगा जाए ऐसी प्रस्तावना है।`);
+  }
+  
+  // 10. Conclusion — always
+  pts.push(`${n++}. बिल समुचित निर्णय हेतु प्रस्तुत है।`);
+  
+  return pts;
+}
+
+// Build output rows
+function buildOutputRows(calc) {
+  const { form, workOrderAmt, lastBillAmt, thisBillAmt, actualExpenditure, balanceDisplay, submissionDelayDays, lateSubmission } = calc;
+  
+  const rows = [
+    ["1. Budget Head", form.budgetHead || "---"],
+    ["2. Agreement No.", form.agreementNo || "---"],
+    ["3. MB No. & Page", form.mbNo || "---"],
+    ["4. Name of Sub Division", form.subDivision || "---"],
+    ["5. Name of Work", form.nameOfWork || "---"],
+    ["6. Name of Contractor", form.nameOfContractor || "---"],
+    ["7. Original / Deposit", form.originalOrDeposit],
+    ["8. Date of Commencement", formatDate(form.dateOfCommencement)],
+    ["9. Date of Completion (Scheduled)", formatDate(form.dateOfCompletion)],
+    ["10. Actual Date of Completion", formatDate(form.actualDateOfCompletion)],
+    ["11. Total Amount of Work Order", `Rs. ${workOrderAmt.toLocaleString("en-IN")}`],
+    ["12A. Sum of payment up to last bill", `Rs. ${lastBillAmt.toLocaleString("en-IN")}`],
+    ["12B. Amount of this bill", `Rs. ${thisBillAmt.toLocaleString("en-IN")}`],
+    ["12C. Actual expenditure up to this bill (A+B)", `Rs. ${actualExpenditure.toLocaleString("en-IN")}`],
+    ["13. Balance to be done = (11 − 12C)", balanceDisplay],
+    ["14. Prorata Progress on the Work", "Evident from para 10 and 12 above."],
+    ["15. Date of record Measurement (JEN/AEN)", formatDate(form.dateOfMeasurement)],
+    ["16. Date of Checking & % checked by AEN", form.checkingDateAEN || "---"],
+    ["17. No. of selection items checked by EE", form.selectionItemsCheckedEE || ""],
+    ["18. Other Inputs", form.otherInputs || ""],
+    ["(A) Is it a Repair / Maintenance Work", form.isRepairMaintenance],
+    ["(B) Extra Item", form.hasExtraItem],
+  ];
+  
+  // Only show "Amount of Extra Items" row if Extra Item is "Yes"
+  if (form.hasExtraItem === "Yes") {
+    rows.push(["    Amount of Extra Items", `Rs. ${calc.extraAmt.toLocaleString("en-IN")}`]);
+  }
+  
+  rows.push(["(C) Any Excess Item", form.hasExcessItem]);
+  
+  if (form.dateOfBillSubmission !== "") {
+    rows.push(["(D) Bill Submission Delay (auto)", lateSubmission ? `Yes — ${submissionDelayDays} days` : `No — ${submissionDelayDays} days`]);
+  }
+  
+  rows.push(["Date of Bill Submission", formatDate(form.dateOfBillSubmission)]);
+  
+  return rows;
+}
+
+// Build deduction rows
+function buildDeductionRows(calc) {
+  const { sd10, it2, gst2, lc1, depV, chequeAmount, totalCheck } = calc;
+  
+  return [
+    ["SD @ 10%", `Rs. ${sd10.toLocaleString("en-IN")}`],
+    ["IT @ 2%", `Rs. ${it2.toLocaleString("en-IN")}`],
+    ["GST @ 2%", `Rs. ${gst2.toLocaleString("en-IN")}`],
+    ["LC @ 1%", `Rs. ${lc1.toLocaleString("en-IN")}`],
+    ["Dep-V", `Rs. ${depV.toLocaleString("en-IN")}`],
+    ["Cheque / Amount", `Rs. ${chequeAmount.toLocaleString("en-IN")}`],
+    ["Total", `Rs. ${totalCheck.toLocaleString("en-IN")}`],
+  ];
+}
+
+// Render preview
+function renderPreview() {
+  const calc = calculate();
+  const outputRows = buildOutputRows(calc);
+  const deductionRows = buildDeductionRows(calc);
+  const notePoints = generateNotePoints(calc);
+  
+  let html = '<table class="preview-table">';
+  html += `<tr><td colspan="2" class="header-cell">${calc.form.billTitle || "BILL SCRUTINY SHEET"}</td></tr>`;
+  
+  outputRows.forEach(([label, value]) => {
+    html += `<tr><td class="label-cell">${label}</td><td class="value-cell">${value}</td></tr>`;
+  });
+  
+  html += '<tr><td colspan="2" class="deduction-header">Deductions:- &nbsp; Rs.</td></tr>';
+  
+  deductionRows.forEach(([label, value]) => {
+    html += `<tr><td class="label-cell deduction-label">${label}</td><td class="value-cell">${value}</td></tr>`;
+  });
+  
+  html += '</table>';
+  
+  html += '<div class="note-section">';
+  html += '<ol>';
+  notePoints.forEach(pt => {
+    html += `<li>${pt}</li>`;
+  });
+  html += '</ol>';
+  html += `<div class="signatory">${calc.form.signatoryName}</div>`;
+  html += '</div>';
+  
+  document.getElementById('preview').innerHTML = html;
+  
+  // Update warnings
+  const lateWarning = document.getElementById('lateWarning');
+  if (calc.lateSubmission) {
+    lateWarning.style.display = 'inline';
+  } else {
+    lateWarning.style.display = 'none';
+  }
+  
+  // Update extra item section visibility
+  const extraSection = document.getElementById('extraItemSection');
+  if (calc.form.hasExtraItem === "Yes") {
+    extraSection.style.display = 'block';
+  } else {
+    extraSection.style.display = 'none';
+  }
+}
+
+// Print function
+function printNoteSheet() {
+  const calc = calculate();
+  const outputRows = buildOutputRows(calc);
+  const deductionRows = buildDeductionRows(calc);
+  const notePoints = generateNotePoints(calc);
+  
+  const rowsHtml = outputRows.map(([l, v]) => `<tr><td class="l">${l}</td><td class="r">${v}</td></tr>`).join("");
+  const dedHtml = deductionRows.map(([l, v]) => `<tr><td class="l" style="padding-left:1.5em">${l}</td><td class="r">${v}</td></tr>`).join("");
+  const notesHtml = notePoints.map(pt => `<li>${pt}</li>`).join("");
+  
+  const printHtml = `<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>${calc.form.billTitle}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { 
+    size: A4 portrait; 
+    margin: 10mm;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Noto Sans Devanagari','Segoe UI',sans-serif; font-size:9pt; color:#000; background:#fff; }
+  table { width:100%; border-collapse:collapse; }
+  td { border:1px solid #555; padding:2px 5px; vertical-align:top; }
+  .h  { text-align:center; font-weight:700; font-size:10pt; background:#fce4ec; color:#880e4f; padding:4px; }
+  .l  { font-weight:600; background:#f5f5f5; width:50%; }
+  .r  { width:50%; }
+  .dh { font-weight:700; background:#ebebeb; }
+  .note-section { border:1px solid #555; border-top:none; padding:8px; }
+  ol { list-style:none; padding:0; }
+  li { margin-bottom:3px; line-height:1.6; }
+  .sig { text-align:center; font-weight:600; margin-top:16px; }
+</style>
+</head>
+<body>
+<table>
+  <tr><td colspan="2" class="h">${calc.form.billTitle}</td></tr>
+  ${rowsHtml}
+  <tr><td colspan="2" class="dh">Deductions:- &nbsp; Rs.</td></tr>
+  ${dedHtml}
+</table>
+<div class="note-section">
+  <ol>${notesHtml}</ol>
+  <div class="sig">${calc.form.signatoryName}</div>
+</div>
+</body>
+</html>`;
+  
+  const win = window.open("", "_blank", "width=794,height=1123");
+  if (!win) {
+    alert("Please allow popups to print.");
+    return;
+  }
+  win.document.write(printHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(() => {
+    win.print();
+    win.close();
+  }, 500);
+}
+
+// Auto-prefix M/s. for contractor name
+document.getElementById('nameOfContractor').addEventListener('input', function(e) {
+  let value = e.target.value;
+  if (value && !value.startsWith("M/s.") && !value.startsWith("m/s.")) {
+    e.target.value = "M/s. " + value;
+  }
+});
+
+// Add event listeners to all inputs
+const inputs = document.querySelectorAll('input, select, textarea');
+inputs.forEach(input => {
+  input.addEventListener('input', renderPreview);
+  input.addEventListener('change', renderPreview);
+});
+
+// Initialize
+window.addEventListener('DOMContentLoaded', () => {
+  createBalloons();
+  renderPreview();
+});
+</script>
+
+</body>
+</html>

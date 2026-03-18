@@ -1,0 +1,53 @@
+═══════════════════════════════════════════════════════════
+    PWD TOOLS SUITE - HOW TO USE
+═══════════════════════════════════════════════════════════
+
+✅ APP IS ALREADY RUNNING!
+
+📍 OPEN APP IN BROWSER:
+   Double-click: OPEN_APP.bat
+   
+   OR copy-paste this in browser:
+   http://localhost:8501
+
+═══════════════════════════════════════════════════════════
+
+📝 TO USE HINDI BILL NOTE SHEET:
+
+1. Open app (see above)
+2. Click "📝 Bill Note Sheet" in LEFT sidebar
+3. Fill the form on LEFT side
+4. See live preview on RIGHT side
+5. Click "🖨️ Print" button when ready
+
+═══════════════════════════════════════════════════════════
+
+🔧 IF APP NOT RUNNING:
+
+   Double-click: START_APP.bat
+   
+   Wait 10 seconds, then use OPEN_APP.bat
+
+═══════════════════════════════════════════════════════════
+
+❓ PROBLEMS?
+
+   Problem: Browser shows "Unable to connect"
+   Solution: Run START_APP.bat first, wait 10 seconds
+
+   Problem: Port already in use
+   Solution: Close all browser tabs, run START_APP.bat again
+
+═══════════════════════════════════════════════════════════
+
+📞 QUICK REFERENCE:
+
+   START_APP.bat  = Start the application
+   OPEN_APP.bat   = Open in browser
+   
+   App URL: http://localhost:8501
+
+═══════════════════════════════════════════════════════════
+
+Version: 2.0.1
+Status: ✅ READY TO USE
