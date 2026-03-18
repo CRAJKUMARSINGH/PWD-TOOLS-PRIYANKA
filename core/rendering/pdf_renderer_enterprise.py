@@ -14,9 +14,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 import subprocess
 import tempfile
+from io import BytesIO
 
-from weasyprint import HTML, CSS
-from weasyprint.text.fonts import FontConfiguration
+from xhtml2pdf import pisa
 
 
 # Configure logging

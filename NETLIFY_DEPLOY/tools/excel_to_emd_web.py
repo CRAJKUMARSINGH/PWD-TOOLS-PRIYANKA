@@ -21,7 +21,7 @@ except ImportError:
     has_utils = False
 
 try:
-    from weasyprint import HTML
+    from xhtml2pdf import pisa
     has_weasyprint = True
 except ImportError:
     has_weasyprint = False

@@ -286,13 +286,16 @@ class FixedPDFGenerator:
         Returns:
             PDF bytes
         """
-        from weasyprint import HTML, CSS
+        from xhtml2pdf import pisa
+        from io import BytesIO
         
         # Add fixed CSS
         html_with_css = self.add_fixed_css(html_content, landscape)
         
         # Convert to PDF
-        pdf_bytes = HTML(string=html_with_css).write_pdf()
+        result = BytesIO()
+        pisa.CreatePDF(BytesIO(html_with_css.encode('utf-8')), dest=result)
+        pdf_bytes = result.getvalue()
         
         return pdf_bytes
     
