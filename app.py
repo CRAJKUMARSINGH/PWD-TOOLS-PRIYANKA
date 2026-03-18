@@ -164,6 +164,24 @@ st.markdown("""
         box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
         border-color: transparent;
     }
+    
+    [data-testid="stSidebar"] .stButton>button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-align: left;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    
+    [data-testid="stSidebar"] .stButton>button:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -220,10 +238,6 @@ if st.session_state.selected_tool is None:
                             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
                     {tool_info['icon']}
                 </div>
-                <div style="font-weight: bold; font-size: 1.2rem; color: white; 
-                            text-align: center; margin-bottom: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
-                    {tool_name.split(' ', 1)[1]}
-                </div>
                 <div style="font-size: 0.95rem; color: rgba(255,255,255,0.95); text-align: center; 
                             min-height: 60px; line-height: 1.6; margin-bottom: 15px;">
                     {tool_info['description']}
@@ -231,7 +245,7 @@ if st.session_state.selected_tool is None:
             </div>
             """, unsafe_allow_html=True)
             
-            if st.button("🚀 Launch", key=f"launch_{tool_name}", use_container_width=True):
+            if st.button(f"🚀 {tool_name.split(' ', 1)[1]}", key=f"launch_{tool_name}", use_container_width=True):
                 st.session_state.selected_tool = tool_name
                 st.rerun()
     
