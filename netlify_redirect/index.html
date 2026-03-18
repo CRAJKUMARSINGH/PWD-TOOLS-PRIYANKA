@@ -3,60 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=https://pwd-tools-priyanka.streamlit.app/">
-    <title>PWD Tools - Redirecting...</title>
+    <title>PWD Tools by Priyanka</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        * {
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            text-align: center;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 2rem;
         }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        a {
-            color: #fff;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+        .tool-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+        .main-button {
+            display: block;
+            background: white;
+            color: #667eea;
+            text-align: center;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            margin: 2rem auto;
+            max-width: 400px;
+        }
+        .main-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>PWD Tools by Priyanka</h1>
-        <p>Redirecting to application...</p>
-        <div class="spinner"></div>
-        <p style="margin-top: 2rem; font-size: 1rem;">
-            If you're not redirected automatically, 
-            <a href="https://pwd-tools-priyanka.streamlit.app/">click here</a>
-        </p>
+        <header>
+            <h1>🏗️ PWD Tools</h1>
+            <p class="subtitle">Professional Tools for Public Works Department</p>
+        </header>
+
+        <div class="tools-grid">
+            <a href="https://pwd-tools-priyanka.streamlit.app/Bill_Generator" class="tool-card">
+                <div class="tool-icon">📝</div>
+                <div class="tool-title">Bill Generator</div>
+                <div class="tool-desc">Generate professional bills with automatic calculations</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Excel_to_EMD" class="tool-card">
+                <div class="tool-icon">📄</div>
+                <div class="tool-title">Excel to EMD</div>
+                <div class="tool-desc">Convert Excel data to EMD format</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/EMD_Refund" class="tool-card">
+                <div class="tool-icon">💰</div>
+                <div class="tool-title">EMD Refund</div>
+                <div class="tool-desc">Process EMD refund requests</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Security_Refund" class="tool-card">
+                <div class="tool-icon">🔒</div>
+                <div class="tool-title">Security Refund</div>
+                <div class="tool-desc">Handle security deposit refunds</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Bill_Note_Sheet" class="tool-card">
+                <div class="tool-icon">📋</div>
+                <div class="tool-title">Bill Note Sheet</div>
+                <div class="tool-desc">Create detailed bill note sheets</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Deductions_Table" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <div class="tool-title">Deductions Table</div>
+                <div class="tool-desc">Manage and calculate deductions</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Financial_Progress" class="tool-card">
+                <div class="tool-icon">📈</div>
+                <div class="tool-title">Financial Progress</div>
+                <div class="tool-desc">Track financial progress reports</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/APG_Calculator" class="tool-card">
+                <div class="tool-icon">🧮</div>
+                <div class="tool-title">APG Calculator</div>
+                <div class="tool-desc">Calculate APG values</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Delay_Calculator" class="tool-card">
+                <div class="tool-icon">⏱️</div>
+                <div class="tool-title">Delay Calculator</div>
+                <div class="tool-desc">Calculate project delays and penalties</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Stamp_Duty" class="tool-card">
+                <div class="tool-icon">📜</div>
+                <div class="tool-title">Stamp Duty</div>
+                <div class="tool-desc">Calculate stamp duty charges</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/Hand_Receipt" class="tool-card">
+                <div class="tool-icon">✋</div>
+                <div class="tool-title">Hand Receipt</div>
+                <div class="tool-desc">Generate hand receipt documents</div>
+            </a>
+
+            <a href="https://pwd-tools-priyanka.streamlit.app/User_Manual" class="tool-card">
+                <div class="tool-icon">📖</div>
+                <div class="tool-title">User Manual</div>
+                <div class="tool-desc">Complete guide and documentation</div>
+            </a>
+        </div>
+
+        <a href="https://pwd-tools-priyanka.streamlit.app/" class="main-button">
+            🚀 Open Full Application
+        </a>
+
+        <footer>
+            <p>© 2026 PWD Tools - Built with ❤️ for Public Works Department</p>
+        </footer>
     </div>
 </body>
 </html>

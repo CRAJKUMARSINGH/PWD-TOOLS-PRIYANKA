@@ -56,6 +56,12 @@ OUTPUT/
 TEST_OUTPUT/
 output/
 test_output/
+NETLIFY_DEPLOY/
+NETLIFY_STATIC/
+NETLIFY_UPDATE/
+netlify_redirect/
+netlify_landing/
+TEST_INPUT_FILES/
 
 # Temporary files
 *.tmp
