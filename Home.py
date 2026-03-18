@@ -101,7 +101,7 @@ st.markdown("""
 st.markdown("""
 <div class="header">
     <h1>🏗️ PWD Tools Suite</h1>
-    <p style="font-size: 1.3rem; margin: 0.5rem 0;">13 Professional Tools for Public Works Department</p>
+    <p style="font-size: 1.3rem; margin: 0.5rem 0;">Professional Tools for Public Works Department</p>
     <p style="font-size: 1rem; opacity: 0.9; margin-top: 1rem;">
         Initiative: Mrs. Premlata Jain, AAO, PWD Udaipur
     </p>
@@ -112,57 +112,6 @@ st.markdown("""
 if 'first_visit' not in st.session_state:
     st.session_state.first_visit = True
     st.balloons()
-
-# Stats
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                padding: 20px; border-radius: 12px; text-align: center; color: white;'>
-        <div style='font-size: 2.5rem;'>🏗️</div>
-        <div style='font-size: 1.8rem; font-weight: bold; margin: 10px 0;'>13</div>
-        <div style='font-size: 0.9rem;'>Total Tools</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-                padding: 20px; border-radius: 12px; text-align: center; color: white;'>
-        <div style='font-size: 2.5rem;'>✅</div>
-        <div style='font-size: 1.8rem; font-weight: bold; margin: 10px 0;'>100%</div>
-        <div style='font-size: 0.9rem;'>Ready</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                padding: 20px; border-radius: 12px; text-align: center; color: white;'>
-        <div style='font-size: 2.5rem;'>⚡</div>
-        <div style='font-size: 1.8rem; font-weight: bold; margin: 10px 0;'>Fast</div>
-        <div style='font-size: 0.9rem;'>Performance</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col4:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-                padding: 20px; border-radius: 12px; text-align: center; color: white;'>
-        <div style='font-size: 2.5rem;'>🚀</div>
-        <div style='font-size: 1.8rem; font-weight: bold; margin: 10px 0;'>v2.0.1</div>
-        <div style='font-size: 0.9rem;'>Version</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-# Instructions
-st.info("👇 **Click any Launch button below to start using a tool!**")
-
-st.markdown("---")
-st.markdown("## 🔧 Available Tools")
 
 # Tool data
 tools_data = [
@@ -219,12 +168,6 @@ st.markdown("""
         <strong>Prepared on Initiative of:</strong><br>
         <span style='font-size: 1.3rem;'>Mrs. Premlata Jain, AAO</span><br>
         PWD Udaipur, Rajasthan
-    </p>
-    <p style='font-size: 1rem; margin: 1rem 0;'>
-        13 Professional Tools | Unified Interface | 100% Production Ready
-    </p>
-    <p style='font-size: 0.95rem; margin: 0.5rem 0; opacity: 0.9;'>
-        🤖 AI Development Partner: Kiro AI Assistant
     </p>
 </div>
 """, unsafe_allow_html=True)
