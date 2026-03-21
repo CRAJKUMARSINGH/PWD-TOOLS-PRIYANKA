@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>🪔 Hindi Bill Note Sheet - हिंदी बिल नोट शीट</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           COMPLETE HINDI BILL NOTE SHEET STYLES
+           Full Navratri/Diwali Theme with Animations
+           ============================================ */
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #fff8e1 0%, #fff3e0 40%, #fce4ec 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        
+        @keyframes floatBalloon {
+            0%, 100% { 
+                transform: translateY(0) rotate(-2deg); 
+            }
+            50% { 
+                transform: translateY(-14px) rotate(2deg); 
+            }
+        }
+
+        @keyframes shimmer {
+            0% { 
+                background-position: 0% center; 
+            }
+            100% { 
+                background-position: 200% center; 
+            }
+        }
+
+        @keyframes flameDance {
+            0%, 100% { 
+                transform: scaleX(1) scaleY(1) rotate(-2deg); 
+                opacity: 1; 
+            }
+            50% { 
+                transform: scaleX(0.85) scaleY(1.15) rotate(2deg); 
+                opacity: 0.85; 
+            }
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(255, 180, 0, 0.35); 
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(255, 180, 0, 0); 
+            }
+        }
+
+        /* ============================================
+           HEADER STYLES
+           ============================================ */
+        
+        .festival-header {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #7B0D00 0%, #c0392b 25%, #e67e22 50%, #c0392b 75%, #7B0D00 100%);
+            background-size: 300% auto;
+            animation: shimmer 8s linear infinite;
+            border-bottom: 4px solid #FFD700;
+        }
+
+        .festival-header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 10px 20px 6px;
+        }
+
+        .festival-title {
+            color: #FFD700;
+            font-weight: 900;
+            font-size: 1.25rem;
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .festival-subtitle {
+            color: #FFEAA7;
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            margin-top: 2px;
+        }
+
+        .gold-divider {
+            background: linear-gradient(90deg, #FFD700, #FF8C00, #FFD700);
+            height: 3px;
+        }
+
+        /* ============================================
+           FLOATING DECORATIONS
+           ============================================ */
+        
+        .decorations-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-diya {
+            position: absolute;
+            bottom: 4px;
+            animation: floatBalloon ease-in-out infinite;
+            font-size: 22px;
+            line-height: 1;
+            filter: drop-shadow(0 0 6px #FFD700) drop-shadow(0 0 12px #FF8C00);
+        }
+
+        .floating-flower {
+            position: absolute;
+            top: 4px;
+            font-size: 16px;
+            opacity: 0.7;
+            animation: floatBalloon ease-in-out infinite;
+        }
+
+        /* ============================================
+           SECTION STYLES (Navratri Theme)
+           ============================================ */
+        
+        .navratri-section {
+            background: linear-gradient(135deg, #fffbf0 0%, #fff8e1 100%);
+            border: 1.5px solid #e6a817;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(200, 130, 0, 0.10);
+        }
+
+        .navratri-section h3 {
+            color: #7B2D00;
+            border-bottom: 1px solid #e6a817;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* ============================================
+           INPUT STYLES
+           ============================================ */
+        
+        .navratri-input,
+        .navratri-select,
+        .navratri-textarea {
+            width: 100%;
+            border: 1.5px solid #e6a817;
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 0.85rem;
+            background: #fffef7;
+            color: #3a1a00;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+        }
+
+        .navratri-input:focus,
+        .navratri-select:focus,
+        .navratri-textarea:focus {
+            border-color: #c8720a;
+            box-shadow: 0 0 0 3px rgba(230, 168, 23, 0.25);
+        }
+
+        .navratri-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #7B2D00;
+            margin-bottom: 3px;
+            display: block;
+            letter-spacing: 0.01em;
+        }
+
+        /* ============================================
+           BUTTON STYLES
+           ============================================ */
+        
+        .print-button {
+            width: 100%;
+            font-weight: bold;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(136, 14, 79, 0.3);
+            background: linear-gradient(90deg, #880e4f, #e91e63, #880e4f);
+            background-size: 200% auto;
+            color: #fff;
+            animation: shimmer 3s linear infinite;
+            border: none;
+            cursor: pointer;
+        }
+
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        /* ============================================
+           LAYOUT STYLES
+           ============================================ */
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 16px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .main-container {
+                flex-direction: row;
+            }
+            
+            .form-panel,
+            .preview-panel {
+                flex: 1;
+            }
+        }
+
+        .form-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #7B0D00, #c0392b, #e67e22);
+            border: 2px solid #FFD700;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(200, 80, 0, 0.25);
+        }
+
+        .info-banner h2 {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #FFD700;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .info-banner p {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: #FFEAA7;
+        }
+
+        /* ============================================
+           GRID LAYOUTS
+           ============================================ */
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-1 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        /* ============================================
+           BILL TITLE DISPLAY
+           ============================================ */
+        
+        .bill-title-display {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+            background: linear-gradient(90deg, #7B0D00, #c0392b, #e67e22, #c0392b, #7B0D00);
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            letter-spacing: 0.05em;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ============================================
+           PREVIEW PANEL STYLES
+           ============================================ */
+        
+        .preview-header {
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            border: 1px solid #f48fb1;
+        }
+
+        .preview-header h2 {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #880e4f;
+            margin-bottom: 4px;
+        }
+
+        .preview-header p {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: #c2185b;
+        }
+
+        .preview-area {
+            background: white;
+            border: 2px solid #f48fb1;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 12px;
+            min-height: 600px;
+            font-family: 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+        }
+
+        /* ============================================
+           TABLE STYLES FOR PREVIEW
+           ============================================ */
+        
+        .note-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .note-table td {
+            border: 1px solid #555;
+            padding: 4px 8px;
+            vertical-align: top;
+        }
+
+        .note-table .header-cell {
+            text-align: center;
+            font-weight: 700;
+            background: #fce4ec;
+            color: #880e4f;
+            padding: 8px;
+        }
+
+        .note-table .label-cell {
+            font-weight: 600;
+            background: #f5f5f5;
+            width: 50%;
+        }
+
+        .note-table .value-cell {
+            width: 50%;
+        }
+
+        .note-table .deduction-header {
+            font-weight: 700;
+            background: #ebebeb;
+        }
+
+        .note-section {
+            border: 1px solid #555;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .note-section ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        .note-section li {
+            margin-bottom: 3px;
+            line-height: 1.6;
+        }
+
+        .signature {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        /* ============================================
+           CALCULATION DISPLAY
+           ============================================ */
+        
+        .calculation-display {
+            background: #fce4ec;
+            border: 1px solid #f48fb1;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 3px 0;
+        }
+
+        .calc-label {
+            color: #880e4f;
+        }
+
+        .calc-value {
+            font-weight: 600;
+            color: #c2185b;
+        }
+
+        /* ============================================
+           ALERT STYLES
+           ============================================ */
+        
+        .alert-warning {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #721c24;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #155724;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #721c24;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ============================================
+           AUTOCOMPLETE DROPDOWN
+           ============================================ */
+        
+        .autocomplete-dropdown {
+            margin-top: 4px;
+            max-height: 128px;
+            overflow-y: auto;
+            border: 1px solid #e6a817;
+            border-radius: 6px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .autocomplete-item {
+            padding: 6px 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .autocomplete-item:hover {
+            background: #fff8e1;
+        }
+
+        /* ============================================
+           PRINT STYLES
+           ============================================ */
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .print-area {
+                display: block !important;
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE STYLES
+           ============================================ */
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .festival-title {
+                font-size: 1rem;
+            }
+            
+            .festival-subtitle {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         FESTIVAL HEADER WITH FLOATING DECORATIONS
+         ============================================ -->
+    <div class="festival-header">
+        <!-- Floating Diyas and Flowers -->
+        <div class="decorations-container">
+            <!-- Diyas at bottom -->
+            <div class="floating-diya" style="left: 3%; animation-delay: 0s; animation-duration: 2.8s;">🪔</div>
+            <div class="floating-diya" style="left: 11%; animation-delay: 0.4s; animation-duration: 3.2s;">🪔</div>
+            <div class="floating-diya" style="left: 21%; animation-delay: 0.9s; animation-duration: 2.5s;">🪔</div>
+            <div class="floating-diya" style="left: 33%; animation-delay: 0.2s; animation-duration: 3.6s;">🪔</div>
+            <div class="floating-diya" style="left: 46%; animation-delay: 1.1s; animation-duration: 2.9s;">🪔</div>
+            <div class="floating-diya" style="left: 59%; animation-delay: 0.6s; animation-duration: 3.1s;">🪔</div>
+            <div class="floating-diya" style="left: 70%; animation-delay: 1.4s; animation-duration: 2.7s;">🪔</div>
+            <div class="floating-diya" style="left: 81%; animation-delay: 0.3s; animation-duration: 3.4s;">🪔</div>
+            <div class="floating-diya" style="left: 91%; animation-delay: 0.8s; animation-duration: 2.6s;">🪔</div>
+            
+            <!-- Flowers at top -->
+            <div class="floating-flower" style="left: 8%; animation-duration: 2.4s; animation-delay: 0s;">🌸</div>
+            <div class="floating-flower" style="left: 25%; animation-duration: 2.7s; animation-delay: 0.5s;">🌸</div>
+            <div class="floating-flower" style="left: 43%; animation-duration: 3.0s; animation-delay: 1.0s;">🌸</div>
+            <div class="floating-flower" style="left: 62%; animation-duration: 2.5s; animation-delay: 1.5s;">🌸</div>
+            <div class="floating-flower" style="left: 78%; animation-duration: 2.8s; animation-delay: 2.0s;">🌸</div>
+            <div class="floating-flower" style="left: 95%; animation-duration: 3.1s; animation-delay: 2.5s;">🌸</div>
+        </div>
+        
+        <div class="festival-header-content">
+            <div class="festival-title">
+                🪔 हिंदी बिल नोट शीट जनरेटर 🪔
+            </div>
+            <div class="festival-subtitle">
+                Hindi Bill Note Sheet Generator  ✦  नवरात्रि की शुभकामनाएं
+            </div>
+        </div>
+        
+        <div class="gold-divider"></div>
+    </div>
+
+    <!-- ============================================
+         MAIN CONTAINER
+         ============================================ -->
+    <div class="main-container">
+        <!-- ============================================
+             FORM PANEL (LEFT SIDE)
+             ============================================ -->
+        <div class="form-panel">
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <h2>✦ इनपुट फॉर्म / Input Form — Bill Details ✦</h2>
+                <p>विवरण भरें, नोट शीट स्वतः अपडेट होगी / Fill details, note sheet updates automatically</p>
+            </div>
+
+            <!-- Bill Identity Section -->
+            <div class="navratri-section">
+                <h3>बिल पहचान / Bill Identity</h3>
+                <div class="grid-2">
+                    <div>
+                        <label class="navratri-label">बिल क्रमांक / Bill Number</label>
+                        <select id="billNumber" class="navratri-select" onchange="updatePreview()">
+                            <option value="1">1ST</option>
+                            <option value="2">2ND</option>
+                            <option value="3">3RD</option>
+                            <option value="4">4TH</option>
+                            <option value="5">5TH</option>
+                            <option value="6">6TH</option>
+                            <option value="7">7TH</option>
+                            <option value="8">8TH</option>
+                            <option value="9">9TH</option>
+                            <option value="10">10TH</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="navratri-label">बिल प्रकार / Bill Type</label>
+                        <select id="billType" class="navratri-select" onchange="updatePreview()">
+                            <option value="Running">Running</option>
+                            <option value="Final">Final</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="billTitleDisplay" class="bill-title-display">1ST RUNNING BILL SCRUTINY SHEET</div>
+            </div>
+
+            <!-- Basic Information Section -->
+            <div class="navratri-section">
+                <h3>मूल जानकारी / Basic Information</h3>
+                <div class="grid-1">
+                    <div class="grid-2">
+                        <div>
+                            <label class="navratri-label">1. बजट शीर्ष / Budget Head</label>
+                            <input type="text" id="budgetHead" class="navratri-input" value="8443-00-108-00-00" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="navratri-label">2. अनुबंध संख्या / Agreement No.</label>
+                            <input type="text" id="agreementNo" class="navratri-input" placeholder="e.g. 62/2024-25" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div>
+                            <label class="navratri-label">3. एम.बी. संख्या व पृष्ठ / MB No. & Page</label>
+                            <input type="text" id="mbNo" class="navratri-input" placeholder="e.g. 813/Page 84-85" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="navratri-label">4. उप-खंड / Sub Division</label>
+                            <select id="subDivision" class="navratri-select" onchange="updatePreview()">
+                                <option>Udaipur</option>
+                                <option>Udaipur-I</option>
+                                <option>Udaipur-II</option>
+                                <option>Rajsamand</option>
+                                <option value="__custom__">Other (type below)</option>
+                            </select>
+                            <input type="text" id="subDivisionCustom" class="navratri-input" placeholder="Enter sub division" style="margin-top: 4px; display: none;" oninput="updatePreview()">
+                        </div>
+                    </div>
