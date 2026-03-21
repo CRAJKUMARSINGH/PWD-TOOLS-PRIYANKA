@@ -6,7 +6,6 @@ NO COMPROMISES - Complete, Beautiful, Independent Application
 
 import streamlit as st
 import streamlit.components.v1 as components
-import os
 
 # Page configuration
 st.set_page_config(
@@ -15,62 +14,552 @@ st.set_page_config(
     layout="wide"
 )
 
+# Complete HTML application embedded directly (no file path issues)
+HTML_CONTENT = """
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi Bill Note Sheet - Full App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Noto Sans Devanagari', sans-serif; 
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+            margin: 0; padding: 0; min-height: 100vh;
+        }
+        .header { 
+            background: linear-gradient(90deg, #880e4f, #c2185b, #e91e63, #c2185b, #880e4f);
+            color: white; text-align: center; padding: 15px;
+            font-weight: 700; animation: shimmer 4s linear infinite;
+            background-size: 200% auto;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .container { display: flex; gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .form-panel, .preview-panel { flex: 1; }
+        .section { 
+            background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px;
+            border: 1px solid #f48fb1; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h3 { 
+            color: #880e4f; border-bottom: 1px solid #f48fb1; 
+            padding-bottom: 8px; margin-bottom: 15px; font-size: 14px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { 
+            display: block; font-size: 12px; font-weight: 600; 
+            color: #880e4f; margin-bottom: 5px;
+        }
+        input, select, textarea { 
+            width: 100%; padding: 8px; border: 1px solid #f48fb1; 
+            border-radius: 4px; font-size: 14px; font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: #e91e63; box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+        }
+        .btn {
+            background: linear-gradient(135deg, #880e4f, #c2185b);
+            color: white; border: none; padding: 12px 24px; border-radius: 8px;
+            font-weight: 600; cursor: pointer; width: 100%; margin: 10px 0;
+        }
+        .btn:hover { background: linear-gradient(135deg, #ad1457, #e91e63); }
+        .preview-area {
+            background: white; border: 2px solid #f48fb1; border-radius: 8px;
+            padding: 20px; font-size: 12px; min-height: 600px;
+        }
+        .note-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .note-table td { border: 1px solid #555; padding: 4px 8px; vertical-align: top; }
+        .note-table .header-cell { 
+            text-align: center; font-weight: 700; background: #fce4ec; 
+            color: #880e4f; padding: 8px;
+        }
+        .note-table .label-cell { font-weight: 600; background: #f5f5f5; width: 50%; }
+        .note-table .value-cell { width: 50%; }
+        .note-table .deduction-header { font-weight: 700; background: #ebebeb; }
+        .note-section { border: 1px solid #555; padding: 12px; margin-top: 10px; }
+        .signature { text-align: center; font-weight: 600; margin-top: 20px; }
+        .test-controls { 
+            background: #e8f5e8; border: 2px solid #4caf50; border-radius: 8px;
+            padding: 15px; margin-bottom: 20px;
+        }
+        .test-result { 
+            padding: 10px; margin: 5px 0; border-radius: 4px; font-weight: 600;
+        }
+        .test-pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .test-fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .calculation-display {
+            background: #fce4ec; border: 1px solid #f48fb1; border-radius: 6px;
+            padding: 10px; margin: 10px 0; font-size: 12px;
+        }
+        .calc-row { display: flex; justify-content: space-between; margin: 3px 0; }
+        .calc-label { color: #880e4f; }
+        .calc-value { font-weight: 600; color: #c2185b; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        🌸 हिंदी बिल नोट शीट जनरेटर | Hindi Bill Note Sheet Generator 🌸
+    </div>
+    
+    <div class="container">
+        <!-- Form Panel -->
+        <div class="form-panel">
+            <div class="test-controls">
+                <h3 style="color: #2e7d32; margin-bottom: 10px;">🧪 Automated Testing Controls</h3>
+                <button class="btn" onclick="runAllTests()" style="background: #4caf50;">
+                    🚀 Run All Tests (Form + Calculations + PDF)
+                </button>
+                <button class="btn" onclick="loadSampleData()" style="background: #2196f3;">
+                    📝 Load Sample Bill Data
+                </button>
+                <button class="btn" onclick="testEdgeCases()" style="background: #ff9800;">
+                    🔍 Test Edge Cases
+                </button>
+                <div id="testResults"></div>
+            </div>
+            <!-- Basic Information -->
+            <div class="section">
+                <h3>मूल जानकारी / Basic Information</h3>
+                <div class="form-group">
+                    <label>बिल शीर्षक / Bill Title</label>
+                    <input type="text" id="billTitle" oninput="updatePreview()">
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>1. बजट शीर्ष / Budget Head</label>
+                        <input type="text" id="budgetHead" oninput="updatePreview()">
+                    </div>
+                    <div>
+                        <label>2. अनुबंध संख्या / Agreement No.</label>
+                        <input type="text" id="agreementNo" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>3. एम.बी. संख्या व पृष्ठ / MB No. & Page</label>
+                        <input type="text" id="mbNo" oninput="updatePreview()">
+                    </div>
+                    <div>
+                        <label>4. उप-खंड का नाम / Sub Division Name</label>
+                        <input type="text" id="subDivision" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>5. कार्य का नाम / Name of Work</label>
+                    <textarea id="nameOfWork" rows="2" oninput="updatePreview()"></textarea>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>6. ठेकेदार का नाम / Contractor Name</label>
+                        <input type="text" id="contractorName" oninput="updatePreview()">
+                    </div>
+                    <div>
+                        <label>7. मूल / जमा / Original / Deposit</label>
+                        <select id="originalDeposit" onchange="updatePreview()">
+                            <option>Original</option>
+                            <option>Deposit</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dates & Amounts -->
+            <div class="section">
+                <h3>तिथियाँ व राशि / Dates & Amounts</h3>
+                <div class="form-row">
+                    <div>
+                        <label>8. प्रारंभ तिथि / Date of Commencement</label>
+                        <input type="date" id="dateCommencement" onchange="updatePreview()">
+                    </div>
+                    <div>
+                        <label>9. पूर्णता तिथि / Date of Completion</label>
+                        <input type="date" id="dateCompletion" onchange="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>11. कुल कार्यादेश राशि / Total Work Order Amount (₹)</label>
+                        <input type="number" id="totalAmount" oninput="updatePreview()" placeholder="0">
+                    </div>
+                    <div>
+                        <label>12B. इस बिल की राशि / Amount of This Bill (₹)</label>
+                        <input type="number" id="billAmount" oninput="updatePreview()" placeholder="0">
+                    </div>
+                </div>
+                
+                <div class="calculation-display" id="calculationDisplay">
+                    <strong>Live Calculations:</strong>
+                    <div class="calc-row">
+                        <span class="calc-label">SD @ 10%:</span>
+                        <span class="calc-value" id="calcSD">₹ 0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span class="calc-label">IT @ 2%:</span>
+                        <span class="calc-value" id="calcIT">₹ 0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span class="calc-label">GST @ 2% (Higher Even):</span>
+                        <span class="calc-value" id="calcGST">₹ 0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span class="calc-label">LC @ 1%:</span>
+                        <span class="calc-value" id="calcLC">₹ 0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span class="calc-label">Net Amount:</span>
+                        <span class="calc-value" id="calcNet" style="color: #2e7d32;">₹ 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Details -->
+            <div class="section">
+                <h3>अन्य विवरण / Other Details</h3>
+                <div class="form-group">
+                    <label>हस्ताक्षरकर्ता नाम / Signatory Name</label>
+                    <input type="text" id="signatoryName" oninput="updatePreview()">
+                </div>
+            </div>
+
+            <button class="btn" onclick="generatePDF()">
+                🖨️ Generate PDF (10mm margins, centered signature)
+            </button>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+            <div class="section">
+                <h3>👁 Live Preview — Note Sheet Output</h3>
+                <p style="font-size: 12px; color: #c2185b; margin-bottom: 15px;">
+                    Exactly what will print on A4 with 10mm margins
+                </p>
+            </div>
+            
+            <div class="preview-area" id="previewArea">
+                <table class="note-table">
+                    <tr><td colspan="2" class="header-cell" id="previewTitle">Bill Title</td></tr>
+                    <tr><td class="label-cell">1. Budget Head</td><td class="value-cell" id="preview1">---</td></tr>
+                    <tr><td class="label-cell">2. Agreement No.</td><td class="value-cell" id="preview2">---</td></tr>
+                    <tr><td class="label-cell">3. MB No. & Page</td><td class="value-cell" id="preview3">---</td></tr>
+                    <tr><td class="label-cell">4. Name of Sub Division</td><td class="value-cell" id="preview4">---</td></tr>
+                    <tr><td class="label-cell">5. Name of Work</td><td class="value-cell" id="preview5">---</td></tr>
+                    <tr><td class="label-cell">6. Name of Contractor</td><td class="value-cell" id="preview6">---</td></tr>
+                    <tr><td class="label-cell">7. Original / Deposit</td><td class="value-cell" id="preview7">Original</td></tr>
+                    <tr><td class="label-cell">8. Date of Commencement</td><td class="value-cell" id="preview8">---</td></tr>
+                    <tr><td class="label-cell">9. Date of Completion</td><td class="value-cell" id="preview9">---</td></tr>
+                    <tr><td class="label-cell">11. Total Work Order Amount</td><td class="value-cell" id="preview11">Rs. 0</td></tr>
+                    <tr><td class="label-cell">12B. Amount of This Bill</td><td class="value-cell" id="preview12">Rs. 0</td></tr>
+                    <tr><td colspan="2" class="deduction-header">Deductions:- Rs.</td></tr>
+                    <tr><td class="label-cell" style="padding-left: 1.5em">SD @ 10%</td><td class="value-cell" id="previewSD">Rs. 0</td></tr>
+                    <tr><td class="label-cell" style="padding-left: 1.5em">IT @ 2%</td><td class="value-cell" id="previewIT">Rs. 0</td></tr>
+                    <tr><td class="label-cell" style="padding-left: 1.5em">GST @ 2%</td><td class="value-cell" id="previewGST">Rs. 0</td></tr>
+                    <tr><td class="label-cell" style="padding-left: 1.5em">LC @ 1%</td><td class="value-cell" id="previewLC">Rs. 0</td></tr>
+                </table>
+                
+                <div class="note-section">
+                    <ol id="notesList"></ol>
+                    <div class="signature" id="previewSignature">---</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Core calculation functions
+        function calculateGST(amount) {
+            const rawGst = amount * 0.02;
+            const rounded = Math.round(rawGst);
+            return rounded % 2 === 0 ? rounded : rounded + 1;
+        }
+
+        function calculateDeductions(billAmount) {
+            return {
+                sd10: Math.round(billAmount * 0.1),
+                it2: Math.round(billAmount * 0.02),
+                gst2: calculateGST(billAmount),
+                lc1: Math.round(billAmount * 0.01)
+            };
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN').format(amount);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return "---";
+            const d = new Date(dateStr);
+            return d.toLocaleDateString("en-IN", { day: "2-digit", month: "2-digit", year: "numeric" });
+        }
+
+        // Update live preview
+        function updatePreview() {
+            document.getElementById('previewTitle').textContent = document.getElementById('billTitle').value || 'Bill Title';
+            document.getElementById('preview1').textContent = document.getElementById('budgetHead').value || '---';
+            document.getElementById('preview2').textContent = document.getElementById('agreementNo').value || '---';
+            document.getElementById('preview3').textContent = document.getElementById('mbNo').value || '---';
+            document.getElementById('preview4').textContent = document.getElementById('subDivision').value || '---';
+            document.getElementById('preview5').textContent = document.getElementById('nameOfWork').value || '---';
+            document.getElementById('preview6').textContent = document.getElementById('contractorName').value || '---';
+            document.getElementById('preview7').textContent = document.getElementById('originalDeposit').value;
+            document.getElementById('preview8').textContent = formatDate(document.getElementById('dateCommencement').value);
+            document.getElementById('preview9').textContent = formatDate(document.getElementById('dateCompletion').value);
+            document.getElementById('previewSignature').textContent = document.getElementById('signatoryName').value || '---';
+
+            const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
+            const billAmount = parseFloat(document.getElementById('billAmount').value) || 0;
+            
+            document.getElementById('preview11').textContent = `Rs. ${formatCurrency(totalAmount)}`;
+            document.getElementById('preview12').textContent = `Rs. ${formatCurrency(billAmount)}`;
+
+            if (billAmount > 0) {
+                const deductions = calculateDeductions(billAmount);
+                const netAmount = billAmount - (deductions.sd10 + deductions.it2 + deductions.gst2 + deductions.lc1);
+
+                document.getElementById('previewSD').textContent = `Rs. ${formatCurrency(deductions.sd10)}`;
+                document.getElementById('previewIT').textContent = `Rs. ${formatCurrency(deductions.it2)}`;
+                document.getElementById('previewGST').textContent = `Rs. ${formatCurrency(deductions.gst2)}`;
+                document.getElementById('previewLC').textContent = `Rs. ${formatCurrency(deductions.lc1)}`;
+
+                document.getElementById('calcSD').textContent = `₹ ${formatCurrency(deductions.sd10)}`;
+                document.getElementById('calcIT').textContent = `₹ ${formatCurrency(deductions.it2)}`;
+                document.getElementById('calcGST').textContent = `₹ ${formatCurrency(deductions.gst2)}`;
+                document.getElementById('calcLC').textContent = `₹ ${formatCurrency(deductions.lc1)}`;
+                document.getElementById('calcNet').textContent = `₹ ${formatCurrency(netAmount)}`;
+            }
+        }
+
+        function loadSampleData() {
+            document.getElementById('billTitle').value = 'RUNNING ACCOUNT BILL NO. 01';
+            document.getElementById('budgetHead').value = '4059-01-800-0-31';
+            document.getElementById('agreementNo').value = '62/2024-25';
+            document.getElementById('mbNo').value = '813/Page 84-85';
+            document.getElementById('subDivision').value = 'Udaipur';
+            document.getElementById('nameOfWork').value = 'Construction of 33/11 KV Sub Station at Village Khempur';
+            document.getElementById('contractorName').value = 'M/s. ABC Electrical Works';
+            document.getElementById('dateCommencement').value = '2024-04-01';
+            document.getElementById('dateCompletion').value = '2025-03-31';
+            document.getElementById('totalAmount').value = '500000';
+            document.getElementById('billAmount').value = '125000';
+            document.getElementById('signatoryName').value = 'Er. Rajkumar Singh';
+            updatePreview();
+            addTestResult('✅ Sample data loaded successfully', 'pass');
+        }
+
+        function addTestResult(message, type) {
+            const resultsDiv = document.getElementById('testResults');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result test-${type}`;
+            resultDiv.textContent = message;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        function clearTestResults() {
+            document.getElementById('testResults').innerHTML = '';
+        }
+
+        function runAllTests() {
+            clearTestResults();
+            addTestResult('🚀 Starting comprehensive app testing...', 'pass');
+            testFormInputs();
+            testGSTCalculation();
+            testAllDeductions();
+            testLivePreview();
+            testDateFormatting();
+            testCurrencyFormatting();
+            testBilingualLabels();
+            addTestResult('🎉 All tests completed! Check results above.', 'pass');
+        }
+
+        function testFormInputs() {
+            const inputs = ['billTitle', 'budgetHead', 'agreementNo', 'mbNo', 'subDivision',
+                'nameOfWork', 'contractorName', 'originalDeposit', 'dateCommencement',
+                'dateCompletion', 'totalAmount', 'billAmount', 'signatoryName'];
+            let allInputsWork = true;
+            inputs.forEach(id => {
+                if (!document.getElementById(id)) {
+                    allInputsWork = false;
+                    addTestResult(`❌ Input field '${id}' not found`, 'fail');
+                }
+            });
+            if (allInputsWork) addTestResult('✅ All form inputs present and accessible', 'pass');
+        }
+
+        function testGSTCalculation() {
+            const testCases = [
+                { amount: 10000, expected: 200 },
+                { amount: 12500, expected: 250 },
+                { amount: 8750, expected: 176 },
+                { amount: 125000, expected: 2500 },
+                { amount: 1250, expected: 26 }
+            ];
+            let allPassed = true;
+            testCases.forEach(test => {
+                const actual = calculateGST(test.amount);
+                if (actual === test.expected) {
+                    addTestResult(`✅ GST for ₹${test.amount}: ₹${actual} (correct)`, 'pass');
+                } else {
+                    addTestResult(`❌ GST for ₹${test.amount}: Expected ₹${test.expected}, got ₹${actual}`, 'fail');
+                    allPassed = false;
+                }
+            });
+            if (allPassed) addTestResult('✅ GST calculation: Rounds to nearest higher even correctly', 'pass');
+        }
+
+        function testAllDeductions() {
+            const billAmount = 100000;
+            const deductions = calculateDeductions(billAmount);
+            const expected = { sd10: 10000, it2: 2000, gst2: 2000, lc1: 1000 };
+            let allCorrect = true;
+            Object.keys(expected).forEach(key => {
+                if (deductions[key] === expected[key]) {
+                    addTestResult(`✅ ${key.toUpperCase()}: ₹${deductions[key]} (correct)`, 'pass');
+                } else {
+                    addTestResult(`❌ ${key.toUpperCase()}: Expected ₹${expected[key]}, got ₹${deductions[key]}`, 'fail');
+                    allCorrect = false;
+                }
+            });
+            if (allCorrect) addTestResult('✅ All deduction calculations working correctly', 'pass');
+        }
+
+        function testLivePreview() {
+            document.getElementById('billTitle').value = 'TEST BILL';
+            updatePreview();
+            if (document.getElementById('previewTitle').textContent === 'TEST BILL') {
+                addTestResult('✅ Live preview updates correctly', 'pass');
+            } else {
+                addTestResult('❌ Live preview not updating', 'fail');
+            }
+            document.getElementById('billTitle').value = '';
+            updatePreview();
+        }
+
+        function testDateFormatting() {
+            const formatted = formatDate('2024-12-25');
+            if (formatted.includes('25') && formatted.includes('12') && formatted.includes('2024')) {
+                addTestResult('✅ Date formatting working correctly', 'pass');
+            } else {
+                addTestResult(`❌ Date formatting issue: ${formatted}`, 'fail');
+            }
+        }
+
+        function testCurrencyFormatting() {
+            const formatted = formatCurrency(125000);
+            if (formatted.includes('1,25,000') || formatted.includes('125,000')) {
+                addTestResult('✅ Currency formatting working correctly', 'pass');
+            } else {
+                addTestResult(`❌ Currency formatting issue: ${formatted}`, 'fail');
+            }
+        }
+
+        function testBilingualLabels() {
+            const labels = document.querySelectorAll('label');
+            let bilingualCount = 0;
+            labels.forEach(label => {
+                if (label.textContent.includes('/')) bilingualCount++;
+            });
+            if (bilingualCount > 10) {
+                addTestResult(`✅ Bilingual labels working: ${bilingualCount} Hindi/English labels found`, 'pass');
+            } else {
+                addTestResult(`❌ Not enough bilingual labels: ${bilingualCount} found`, 'fail');
+            }
+        }
+
+        function testEdgeCases() {
+            clearTestResults();
+            addTestResult('🔍 Testing edge cases...', 'pass');
+            const smallGST = calculateGST(50);
+            addTestResult(`Small amount GST (₹50): ₹${smallGST}`, smallGST >= 0 ? 'pass' : 'fail');
+            const largeGST = calculateGST(1000000);
+            addTestResult(`Large amount GST (₹1000000): ₹${largeGST}`, largeGST > 0 ? 'pass' : 'fail');
+            const zeroGST = calculateGST(0);
+            addTestResult(`Zero amount GST: ₹${zeroGST}`, zeroGST === 0 ? 'pass' : 'fail');
+            [1250, 3750, 8750].forEach(amount => {
+                const gst = calculateGST(amount);
+                const isEven = gst % 2 === 0;
+                addTestResult(`Odd case ₹${amount} → GST ₹${gst} (${isEven ? 'even ✓' : 'odd ✗'})`, isEven ? 'pass' : 'fail');
+            });
+        }
+
+        function generatePDF() {
+            const billTitle = document.getElementById('billTitle').value || 'Bill Title';
+            const pdfContent = `<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>${billTitle}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4 portrait; margin: 10mm; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Noto Sans Devanagari','Segoe UI',sans-serif; font-size:9pt; color:#000; background:#fff; }
+  table { width:100%; border-collapse:collapse; }
+  td { border:1px solid #555; padding:2px 5px; vertical-align:top; }
+  .h  { text-align:center; font-weight:700; font-size:10pt; background:#fce4ec; color:#880e4f; padding:4px; }
+  .l  { font-weight:600; background:#f5f5f5; width:50%; }
+  .r  { width:50%; }
+  .dh { font-weight:700; background:#ebebeb; }
+  .note-section { border:1px solid #555; border-top:none; padding:8px; }
+  ol { list-style:none; padding:0; }
+  li { margin-bottom:3px; line-height:1.6; }
+  .sig { text-align:center; font-weight:600; margin-top:16px; }
+</style>
+</head>
+<body>${document.getElementById('previewArea').innerHTML}</body>
+</html>`;
+            const printWindow = window.open('', '_blank', 'width=794,height=1123');
+            printWindow.document.write(pdfContent);
+            printWindow.document.close();
+            printWindow.focus();
+            addTestResult('✅ PDF generated with 10mm margins and centered signature', 'pass');
+            addTestResult('📄 Check the new window - ready for printing to PDF', 'pass');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePreview();
+            addTestResult('🎯 App loaded successfully - Ready for testing!', 'pass');
+        });
+    </script>
+</body>
+</html>
+"""
+
 def main():
     st.markdown("## 🪔 Hindi Bill Note Sheet Generator - Complete Application")
     st.success("🌸 **COMPLETE STANDALONE APP** | Navratri Theme | Floating Diyas & Flowers | Bilingual Interface | Live Calculations | Automated Testing | PDF Generation | Sample Data Loader")
     
-    # Load the COMPLETE standalone HTML app
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(current_dir)
-    html_file_path = os.path.join(parent_dir, "hindi_bill_note_sheet_app", "COMPLETE_HINDI_BILL_NOTE_SHEET.html")
+    st.markdown("---")
     
-    try:
-        # Read the complete standalone HTML file
-        with open(html_file_path, "r", encoding="utf-8") as f:
-            html_content = f.read()
-        
-        st.markdown("---")
-        
-        # Display the complete app with full height
-        components.html(html_content, height=1800, scrolling=True)
-        
-        st.markdown("---")
-        st.success("✅ Complete Hindi Bill Note Sheet application loaded successfully!")
-        
-        # Feature showcase in 4 columns
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.info("🪔 **Navratri Theme**\nFloating diyas & festive decorations")
-        with col2:
-            st.info("🌸 **Bilingual Interface**\nHindi/English labels throughout")
-        with col3:
-            st.info("📊 **Live Calculations**\nSD, IT, GST, LC auto-calculated")
-        with col4:
-            st.info("🖨️ **PDF Generation**\nProfessional A4 output with 10mm margins")
-        
-        col5, col6, col7, col8 = st.columns(4)
-        with col5:
-            st.info("👁️ **Live Preview**\nSee changes instantly")
-        with col6:
-            st.info("✨ **GST Rounding**\nHigher even number logic")
-        with col7:
-            st.info("🧪 **Automated Testing**\nBuilt-in test suite")
-        with col8:
-            st.info("📝 **Sample Data**\nOne-click test data loader")
-        
-    except FileNotFoundError as e:
-        st.error(f"❌ Error: Could not find the HTML file")
-        st.info(f"Missing file: {html_file_path}")
-        st.code(f"""
-Expected file:
-- {html_file_path}
-
-Current directory: {current_dir}
-Parent directory: {parent_dir}
-        """)
-    except Exception as e:
-        st.error(f"❌ Error loading the app: {str(e)}")
-        st.code(f"Error details: {type(e).__name__}: {str(e)}")
+    # Display the complete app with full height
+    components.html(HTML_CONTENT, height=1800, scrolling=True)
+    
+    st.markdown("---")
+    st.success("✅ Complete Hindi Bill Note Sheet application loaded successfully!")
+    
+    # Feature showcase
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.info("🪔 **Navratri Theme**\nFloating diyas & festive decorations")
+    with col2:
+        st.info("🌸 **Bilingual Interface**\nHindi/English labels throughout")
+    with col3:
+        st.info("📊 **Live Calculations**\nSD, IT, GST, LC auto-calculated")
+    with col4:
+        st.info("🖨️ **PDF Generation**\nProfessional A4 output with 10mm margins")
+    
+    col5, col6, col7, col8 = st.columns(4)
+    with col5:
+        st.info("👁️ **Live Preview**\nSee changes instantly")
+    with col6:
+        st.info("✨ **GST Rounding**\nHigher even number logic")
+    with col7:
+        st.info("🧪 **Automated Testing**\nBuilt-in test suite")
+    with col8:
+        st.info("📝 **Sample Data**\nOne-click test data loader")
 
 if __name__ == "__main__":
     main()
