@@ -45,7 +45,7 @@
 | 📊 **Excel to EMD** | Generate EMD receipts from Excel (batch processing) |
 | 💸 **EMD Refund** | Calculate EMD refunds with penalties |
 | 🔒 **Security Refund** | Security deposit refund calculator |
-| 📝 **Bill Note Sheet** | Generate bill note sheets with LD calculation |
+| 📝 **Bill Note Sheet** | Complete Hindi bill note sheet with automated testing & PDF generation |
 | ➖ **Deductions Table** | Calculate TDS and security deductions |
 | 📈 **Financial Progress** | Track financial progress of projects |
 | 🧮 **APG Calculator** | Calculate APG values (50% savings beyond -15%) |
@@ -197,6 +197,16 @@ docker run -p 8501:8501 pwd-tools
 Proprietary - Public Works Department, Udaipur, Rajasthan
 
 ## 🔄 Version History
+
+### v2.1.0 (March 21, 2026)
+- ✅ Updated Hindi Bill Note Sheet with complete standalone version
+- ✅ Automated testing suite built-in
+- ✅ Sample data loader for quick testing
+- ✅ Enhanced GST calculation (rounds to higher even)
+- ✅ Live calculation display
+- ✅ PDF generation with 10mm margins
+- ✅ Edge case testing functionality
+- ✅ Improved bilingual interface
 
 ### v2.0.1 (March 18, 2025)
 - ✅ Beautiful landing page with gradient cards

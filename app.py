@@ -48,7 +48,7 @@ TOOLS = {
     },
     "📝 Bill Note Sheet": {
         "file": "tools/bill_note_sheet.py",
-        "description": "Generate bill note sheets with LD calculation",
+        "description": "Complete Hindi bill note sheet with automated testing & PDF generation",
         "icon": "📝"
     },
     "➖ Deductions Table": {

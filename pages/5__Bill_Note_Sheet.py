@@ -1,7 +1,7 @@
 """
-Hindi Bill Note Sheet Generator - Complete Interactive React App
-Full features: M/s. auto-prefix, all fields, auto-calculations, floating balloons, Hindi notes
-Fully integrated React application with all assets
+Hindi Bill Note Sheet Generator - Complete Interactive App
+Full features: Bilingual labels, auto-calculations, GST rounding, automated testing, PDF generation
+Complete standalone HTML application with all features built-in
 """
 
 import streamlit as st
@@ -17,78 +17,52 @@ st.set_page_config(
 
 def main():
     st.markdown("## 📝 Hindi Bill Note Sheet Generator")
-    st.info("🌸 **Complete Interactive React App** | M/s. auto-prefix | All fields | Auto-calculations | Floating balloons | Hindi note generation")
+    st.info("🌸 **Complete Interactive App** | Bilingual labels | Auto-calculations | GST rounding to higher even | Automated testing | PDF generation with 10mm margins")
     
-    # Load the complete React app
+    # Load the complete standalone HTML app
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(current_dir)
-    html_file_path = os.path.join(parent_dir, "hindi_bill_note_sheet_app", "index.html")
-    assets_dir = os.path.join(parent_dir, "hindi_bill_note_sheet_app")
+    html_file_path = os.path.join(parent_dir, "hindi_bill_note_sheet_app", "COMPLETE_HINDI_BILL_NOTE_SHEET.html")
     
     try:
-        # Read the main HTML file
+        # Read the complete standalone HTML file
         with open(html_file_path, "r", encoding="utf-8") as f:
             html_content = f.read()
         
-        # Read the CSS file
-        css_file = os.path.join(assets_dir, "assets", "index-Co3DCvaa.css")
-        with open(css_file, "r", encoding="utf-8") as f:
-            css_content = f.read()
-        
-        # Read the JS file
-        js_file = os.path.join(assets_dir, "assets", "index-DVx-snOk.js")
-        with open(js_file, "r", encoding="utf-8") as f:
-            js_content = f.read()
-        
-        # Create a complete standalone HTML with embedded CSS and JS
-        complete_html = f"""
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Hindi Bill Note Sheet</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      @media print {{
-        .no-print {{ display: none !important; }}
-        .print-area {{ display: block !important; }}
-      }}
-      {css_content}
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module">
-      {js_content}
-    </script>
-  </body>
-</html>
-"""
-        
         st.markdown("---")
         
-        # Display the complete React app
-        components.html(complete_html, height=1400, scrolling=True)
+        # Display the complete app
+        components.html(html_content, height=1600, scrolling=True)
         
         st.markdown("---")
-        st.success("✅ Complete Hindi Bill Note Sheet React app loaded successfully!")
-        st.info("💡 **Features:** Bilingual labels | Live calculations | GST rounding to higher even | Auto-preview | PDF generation | React-powered UI")
+        st.success("✅ Complete Hindi Bill Note Sheet app loaded successfully!")
+        
+        # Feature list
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.info("✅ **Bilingual Labels**\nHindi/English for all fields")
+        with col2:
+            st.info("✅ **Live Calculations**\nSD 10% | IT 2% | GST 2% | LC 1%")
+        with col3:
+            st.info("✅ **GST Rounding**\nRounds to nearest higher even number")
+        
+        col4, col5, col6 = st.columns(3)
+        with col4:
+            st.info("✅ **Live Preview**\nInstant updates as you type")
+        with col5:
+            st.info("✅ **PDF Generation**\nA4 with 10mm margins")
+        with col6:
+            st.info("✅ **Automated Testing**\nBuilt-in test suite with sample data")
         
     except FileNotFoundError as e:
-        st.error(f"❌ Error: Could not find required files")
-        st.info(f"Missing file: {str(e)}")
+        st.error(f"❌ Error: Could not find the HTML file")
+        st.info(f"Missing file: {html_file_path}")
         st.code(f"""
-Expected files:
+Expected file:
 - {html_file_path}
-- {css_file}
-- {js_file}
 
 Current directory: {current_dir}
 Parent directory: {parent_dir}
-Assets directory: {assets_dir}
         """)
     except Exception as e:
         st.error(f"❌ Error loading the app: {str(e)}")

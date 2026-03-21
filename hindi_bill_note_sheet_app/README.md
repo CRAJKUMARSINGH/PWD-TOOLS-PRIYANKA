@@ -2,67 +2,62 @@
 
 ## ⚠️ IMPORTANT - DO NOT DELETE THIS FOLDER
 
-This folder contains the complete integrated Hindi Bill Note Sheet React application.
+This folder contains the complete integrated Hindi Bill Note Sheet application.
 
 **Used by:** `pages/5__Bill_Note_Sheet.py`
 
 ## 📁 Contents
 
-- `index.html` - Main React app entry point
-- `assets/index-Co3DCvaa.css` - Complete application styles
-- `assets/index-DVx-snOk.js` - Complete React application JavaScript
+- `COMPLETE_HINDI_BILL_NOTE_SHEET.html` - **PRIMARY FILE** - Complete standalone application
+- `index.html` - React app entry point (legacy/reference)
+- `assets/index-Co3DCvaa.css` - Application styles (legacy/reference)
+- `assets/index-DVx-snOk.js` - React application JavaScript (legacy/reference)
 - `favicon.svg` - App icon
 - `opengraph.jpg` - Social media preview image
-- `COMPLETE_HINDI_BILL_NOTE_SHEET.html` - Standalone HTML version (backup)
 - `_redirects` - Netlify redirects configuration (reference)
 
 ## 🎯 Features
 
-- ✅ Bilingual labels (Hindi/English)
-- ✅ Live preview with instant updates
-- ✅ GST calculation (rounds to higher even number)
-- ✅ All deductions (SD 10%, IT 2%, GST 2%, LC 1%)
-- ✅ PDF generation with 10mm margins
-- ✅ Automated testing suite
-- ✅ Sample data loader
-- ✅ Beautiful gradient UI
-- ✅ React-powered interactive interface
+- ✅ **Bilingual labels** (Hindi/English) for all fields
+- ✅ **Live preview** with instant updates as you type
+- ✅ **GST calculation** - Rounds to nearest higher even number (e.g., 175 → 176)
+- ✅ **All deductions** - SD 10%, IT 2%, GST 2%, LC 1%
+- ✅ **PDF generation** with 10mm margins and centered signature
+- ✅ **Automated testing suite** - Run all tests, edge cases, sample data
+- ✅ **Sample data loader** - One-click test data population
+- ✅ **Live calculation display** - See all deductions and net amount in real-time
+- ✅ **Beautiful gradient UI** - Pink/rose theme with smooth animations
+- ✅ **Complete standalone** - No external dependencies, all-in-one HTML file
 
 ## 🔧 How It Works
 
 The Streamlit page (`pages/5__Bill_Note_Sheet.py`):
-1. Reads `index.html`, CSS, and JS files
-2. Combines them into one complete standalone HTML
-3. Embeds it using `components.html()`
-4. Runs the full React app in the browser
+1. Reads `COMPLETE_HINDI_BILL_NOTE_SHEET.html`
+2. Embeds it using `components.html()`
+3. Runs the complete app in the browser with all features
 
 ## 📝 Source
 
-Built from: `Hindi_Bill_Note_Sheet/artifacts/hindi-bill/dist/`
-
-This is the production build of the React application deployed at:
-https://hindibillnote.netlify.app/
+This is a complete standalone HTML application with:
+- Embedded JavaScript for all calculations and interactions
+- Embedded CSS for styling
+- No build process required
+- No external dependencies
+- Works offline
 
 ## ⚠️ WARNING
 
 **DO NOT DELETE OR RENAME THIS FOLDER**
 
-If you accidentally delete it, you can restore it by running:
-```bash
-Copy-Item -Path "Hindi_Bill_Note_Sheet/artifacts/hindi-bill/dist/*" -Destination "hindi_bill_note_sheet_app/" -Recurse -Force
-```
+The `COMPLETE_HINDI_BILL_NOTE_SHEET.html` file is the primary application file used by the Streamlit app.
 
 ## 🔄 To Update
 
-If you make changes to the React app and rebuild it:
-```bash
-# From Hindi_Bill_Note_Sheet/artifacts/hindi-bill/
-npm run build
-
-# Then copy the new build
-Copy-Item -Path "Hindi_Bill_Note_Sheet/artifacts/hindi-bill/dist/*" -Destination "../../hindi_bill_note_sheet_app/" -Recurse -Force
-```
+To update the application:
+1. Edit `COMPLETE_HINDI_BILL_NOTE_SHEET.html` directly
+2. Test in browser by opening the file
+3. Restart Streamlit app to see changes
 
 ---
 
-**Status:** ✅ Production Ready | **Version:** 2.0.1 | **Integrated:** March 18, 2026
+**Status:** ✅ Production Ready | **Version:** 2.1.0 | **Updated:** March 21, 2026
