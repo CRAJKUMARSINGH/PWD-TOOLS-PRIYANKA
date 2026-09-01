@@ -72,17 +72,17 @@ receipt_template = Template("""
     {% for receipt in receipts %}
     <div class="container">
         <div class="header">
-            <h2>Payable to: - {{ receipt.payee }} ( Electric Contractor)</h2>
+            <h2>Payable to: - {{ receipt.payee }} </h2>
             <h2>HAND RECEIPT (RPWA 28)</h2>
             <p>(Referred to in PWF&A Rules 418,424,436 & 438)</p>
-            <p>Division - PWD Electric Division, Udaipur</p>
+            <p>Division - PWD District Division-II, Udaipur</p>
         </div>
         <div class="details">
             <p>(1)Cash Book Voucher No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <p>(2)Cheque No. and Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <p>(3) Pay for ECS Rs.{{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p>(4) Paid by me</p>
-            <p>(5) Received from The Executive Engineer PWD Electric Division, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
+            <p>(5) Received from The Executive Engineer PWD District Division-II, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p> Name of work for which payment is made: <span class="input-field">{{ receipt.work }}</span></p>
             <p> Chargeable to Head:- 8443 [EMD-Refund] </p>
             <table class="signature-area">
