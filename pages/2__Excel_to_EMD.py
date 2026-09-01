@@ -195,6 +195,22 @@ def main():
     ⚠️ Maximum 50 rows will be processed per file
     """)
     
+    # Sample file download
+    st.markdown("### 📥 Sample File")
+    sample_file_path = Path(__file__).parent.parent / "SAMPLE INPUT OUTPUT FILES" / "INPUT EMD USING EXCEL TOOL.xlsx"
+    
+    if sample_file_path.exists():
+        with open(sample_file_path, "rb") as f:
+            st.download_button(
+                label="⬇️ Download Sample Excel File",
+                data=f,
+                file_name="sample_emd_input.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                use_container_width=True
+            )
+    else:
+        st.warning("⚠️ Sample file not found")
+    
     # File uploader
     uploaded_file = st.file_uploader(
         "📁 Choose your Excel file",
