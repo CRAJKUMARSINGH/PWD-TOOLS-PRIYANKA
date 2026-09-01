@@ -11,4 +11,3 @@ Pillow
 num2words
 python-dotenv
 pytz
-xhtml2pdf

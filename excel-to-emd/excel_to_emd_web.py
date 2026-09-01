@@ -11,7 +11,12 @@ from pathlib import Path
 import sys
 
 try:
-    from xhtml2pdf import pisa
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet
+    from reportlab.lib.units import inch
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT
+    from reportlab.lib import colors
     has_weasyprint = True
 except ImportError:
     has_weasyprint = False
@@ -233,16 +238,84 @@ def main():
                             if not receipts:
                                 st.error("❌ No valid data found in the Excel file")
                             else:
-                                # Generate HTML
-                                rendered_html = receipt_template.render(receipts=receipts)
-                                
-                                # Generate PDF if xhtml2pdf available
+                                # Generate PDF using reportlab
                                 if has_weasyprint:
                                     try:
                                         from io import BytesIO
-                                        result = BytesIO()
-                                        pisa.CreatePDF(BytesIO(rendered_html.encode('utf-8')), dest=result)
-                                        pdf_bytes = result.getvalue()
+                                        from reportlab.lib.pagesizes import A4
+                                        from reportlab.lib.styles import getSampleStyleSheet
+                                        from reportlab.lib.units import inch
+                                        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+                                        from reportlab.lib import colors
+                                        
+                                        pdf_buffer = BytesIO()
+                                        doc = SimpleDocTemplate(
+                                            pdf_buffer,
+                                            pagesize=A4,
+                                            rightMargin=72,
+                                            leftMargin=72,
+                                            topMargin=72,
+                                            bottomMargin=18
+                                        )
+                                        
+                                        styles = getSampleStyleSheet()
+                                        story = []
+                                        
+                                        # Create each receipt as a separate page
+                                        for idx, receipt in enumerate(receipts, start=1):
+                                            # Header
+                                            story.append(Paragraph(f"<b>Payable to: - {receipt['payee']}</b>", styles['Heading2']))
+                                            story.append(Spacer(1, 12))
+                                            story.append(Paragraph("<b>HAND RECEIPT (RPWA 28)</b>", styles['Heading2']))
+                                            story.append(Paragraph("(Referred to in PWF&A Rules 418,424,436 & 438)", styles['Normal']))
+                                            story.append(Paragraph("Division - PWD District Division, Udaipur", styles['Normal']))
+                                            story.append(Spacer(1, 24))
+                                            
+                                            # Details
+                                            story.append(Paragraph("(1) Cash Book Voucher No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", styles['Normal']))
+                                            story.append(Paragraph("(2) Cheque No. and Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", styles['Normal']))
+                                            story.append(Paragraph(f"(3) Pay for ECS Rs.{receipt['amount']}/- (Rupees <i>{receipt['amount_words']} only</i>)", styles['Normal']))
+                                            story.append(Paragraph("(4) Paid by me", styles['Normal']))
+                                            story.append(Paragraph(f"(5) Received from The Executive Engineer PWD District Division, Udaipur the sum of Rs. {receipt['amount']}/- (Rupees <i>{receipt['amount_words']} only</i>)", styles['Normal']))
+                                            story.append(Paragraph(f"Name of work for which payment is made: {receipt['work']}", styles['Normal']))
+                                            story.append(Paragraph("Chargeable to Head:- 8443 [EMD-Refund]", styles['Normal']))
+                                            story.append(Spacer(1, 24))
+                                            
+                                            # Signature table
+                                            sig_data = [['Witness', 'Stamp', 'Signature of payee'],
+                                                       ['Cash Book No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', '', '']]
+                                            sig_table = Table(sig_data, colWidths=[2*inch, 2*inch, 2*inch])
+                                            sig_table.setStyle(TableStyle([
+                                                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                                                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                                                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                                                ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+                                                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                                            ]))
+                                            story.append(sig_table)
+                                            story.append(Spacer(1, 24))
+                                            
+                                            # Office table
+                                            office_data = [['For use in the Divisional Office', 'For use in the Accountant General\'s office'],
+                                                         ['Checked', 'Audited/Reviewed'],
+                                                         ['Accounts Clerk', 'DA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Auditor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Supdt. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; G.O.']]
+                                            office_table = Table(office_data, colWidths=[3.5*inch, 3.5*inch])
+                                            office_table.setStyle(TableStyle([
+                                                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                                                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                                                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                                                ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+                                                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                                            ]))
+                                            story.append(office_table)
+                                            
+                                            # Add page break between receipts (except for the last one)
+                                            if idx < len(receipts):
+                                                story.append(PageBreak())
+                                        
+                                        # Build the complete PDF
+                                        doc.build(story)
+                                        pdf_bytes = pdf_buffer.getvalue()
                                         
                                         st.success("✅ PDF generated successfully!")
                                         st.balloons()
@@ -256,6 +329,8 @@ def main():
                                         )
                                     except Exception as pdf_error:
                                         st.warning(f"⚠️ PDF generation failed: {pdf_error}")
+                                        # Fallback to HTML
+                                        rendered_html = receipt_template.render(receipts=receipts)
                                         st.download_button(
                                             label="📥 Download HTML",
                                             data=rendered_html,
@@ -265,6 +340,7 @@ def main():
                                         )
                                 else:
                                     # Fallback to HTML download
+                                    rendered_html = receipt_template.render(receipts=receipts)
                                     st.warning("⚠️ PDF generation not available. Downloading HTML instead.")
                                     st.download_button(
                                         label="📥 Download HTML",
