@@ -1,7 +1,6 @@
 """
 Excel to EMD Web - Hand Receipt Generator (RPWA 28)
-Fully integrated from PWD-Tools-MarudharHR-main
-Standalone deployable tool
+Integrated tool for PWD Tools Suite
 Run: streamlit run tools/excel_to_emd_web.py
 """
 
@@ -166,6 +165,12 @@ def main():
     if has_utils:
         apply_custom_css()
         create_breadcrumb("Hand Receipt Generator")
+    
+    # Sample-input download link (shown in the Streamlit sidebar)
+    st.sidebar.markdown(
+        "[Sample Input Files]"
+        "(https://github.com/CRAJKUMARSINGH/PWD-TOOLS-PRIYANKA/tree/main/SAMPLE%20INPUT%20OUTPUT%20FILES)"
+    )
     
     st.markdown("## 📄 Hand Receipt Generator (RPWA 28)")
     st.markdown("### Generate professional hand receipts for EMD refunds")

@@ -1,7 +1,7 @@
 """
 Excel to EMD Web - Hand Receipt Generator (RPWA 28)
-Fully integrated from PWD-Tools-MarudharHR-main
-Multi-page deployment version
+Standalone deployable tool
+Run: streamlit run excel_to_emd_web.py
 """
 
 import streamlit as st
@@ -10,20 +10,14 @@ from jinja2 import Template
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-try:
-    from utils.branding import apply_custom_css
-    from utils.navigation import create_breadcrumb, create_back_button
-    has_utils = True
-except ImportError:
-    has_utils = False
-
 try:
     from xhtml2pdf import pisa
     has_weasyprint = True
 except ImportError:
     has_weasyprint = False
+
+# Standalone mode - no utils
+has_utils = False
 
 # Receipt template
 receipt_template = Template("""
@@ -95,48 +89,46 @@ receipt_template = Template("""
 </html>
 """)
 
-# ----------------------------------------------------------------------
-# Helper functions & main app (unchanged)
-# ----------------------------------------------------------------------
 def convert_number_to_words(num):
     """Convert number to words in Indian format"""
     ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
     tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
     teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
-
+    
     if num == 0:
         return "Zero"
-
+    
     words = ""
-
+    
     # Crores
     if num >= 10000000:
         crore_part = int(num / 10000000)
         words += convert_number_to_words(crore_part) + " Crore "
         num %= 10000000
-
+    
     # Lakhs
     if num >= 100000:
         lakh_part = int(num / 100000)
         words += convert_number_to_words(lakh_part) + " Lakh "
         num %= 100000
-
+    
     # Thousands
     if num >= 1000:
         thousand_part = int(num / 1000)
         words += convert_number_to_words(thousand_part) + " Thousand "
         num %= 1000
-
+    
     # Hundreds
     if num >= 100:
         hundred_part = int(num / 100)
         words += ones[hundred_part] + " Hundred "
         num %= 100
-
+    
     # Tens and ones
     if num > 0:
         if words != "":
             words += "and "
+        
         if num < 10:
             words += ones[int(num)]
         elif num < 20:
@@ -145,9 +137,8 @@ def convert_number_to_words(num):
             words += tens[int(num / 10)]
             if num % 10 > 0:
                 words += " " + ones[int(num % 10)]
-
+    
     return words.strip()
-
 
 def find_column(df_columns, possible_names):
     """Find column by matching possible names"""
@@ -157,7 +148,6 @@ def find_column(df_columns, possible_names):
             if name_lower in col.strip().lower():
                 return col
     return None
-
 
 def main():
     st.set_page_config(
