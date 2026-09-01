@@ -26,16 +26,6 @@ try:
 except ImportError:
     has_weasyprint = False
 
-st.set_page_config(
-    page_title="Hand Receipt Generator (RPWA 28)",
-    page_icon="📄",
-    layout="wide"
-)
-
-if has_utils:
-    apply_custom_css()
-    create_breadcrumb("Hand Receipt Generator")
-
 # Receipt template
 receipt_template = Template("""
 <!DOCTYPE html>
@@ -45,11 +35,11 @@ receipt_template = Template("""
     <meta name="viewport" content="width=210mm, height=297mm">
     <title>Hand Receipt (RPWA 28)</title>
     <style>
-        body { font-family: sans-serif; margin: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; }
         @page { size: A4 portrait; margin: 10mm; }
         .container {
             width: 210mm; height: 297mm; margin: 0 auto;
-            border: 2px solid #ccc; padding: 20px; box-sizing: border-box;
+            border: 2px solid #ccc; padding: 20px;
             position: relative; page-break-after: always;
         }
         .header { text-align: center; margin-bottom: 2px; }
@@ -57,8 +47,8 @@ receipt_template = Template("""
         .amount-words { font-style: italic; }
         .signature-area, .offices { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .signature-area td, .signature-area th { border: 1px solid #ccc; padding: 5px; text-align: left; }
-        .offices td, .offices th { border: 1px solid black; padding: 5px; text-align: left; word-wrap: break-word; }
-        .input-field { border-bottom: 1px dotted #ccc; padding: 3px; width: calc(100% - 10px); display: inline-block; }
+        .offices td, .offices th { border: 1px solid black; padding: 5px; text-align: left; }
+        .input-field { border-bottom: 1px dotted #ccc; padding: 3px; width: 95%; display: inline-block; }
         .bottom-left-box {
             position: absolute; bottom: 40mm; left: 40mm;
             border: 2px solid black; padding: 10px; width: 300px; text-align: left;
@@ -71,17 +61,17 @@ receipt_template = Template("""
     {% for receipt in receipts %}
     <div class="container">
         <div class="header">
-            <h2>Payable to: - {{ receipt.payee }} ( Electric Contractor)</h2>
+            <h2>Payable to: - {{ receipt.payee }} </h2>
             <h2>HAND RECEIPT (RPWA 28)</h2>
             <p>(Referred to in PWF&A Rules 418,424,436 & 438)</p>
-            <p>Division - PWD Electric Division, Udaipur</p>
+            <p>Division - PWD District Division-II, Udaipur</p>
         </div>
         <div class="details">
             <p>(1)Cash Book Voucher No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <p>(2)Cheque No. and Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <p>(3) Pay for ECS Rs.{{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p>(4) Paid by me</p>
-            <p>(5) Received from The Executive Engineer PWD Electric Division, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
+            <p>(5) Received from The Executive Engineer PWD District Division, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p> Name of work for which payment is made: <span class="input-field">{{ receipt.work }}</span></p>
             <p> Chargeable to Head:- 8443 [EMD-Refund] </p>
             <table class="signature-area">
@@ -167,6 +157,16 @@ def find_column(df_columns, possible_names):
     return None
 
 def main():
+    st.set_page_config(
+        page_title="Hand Receipt Generator (RPWA 28)",
+        page_icon="📄",
+        layout="wide"
+    )
+
+    if has_utils:
+        apply_custom_css()
+        create_breadcrumb("Hand Receipt Generator")
+    
     st.markdown("## 📄 Hand Receipt Generator (RPWA 28)")
     st.markdown("### Generate professional hand receipts for EMD refunds")
     
@@ -245,21 +245,31 @@ def main():
                                 
                                 # Generate PDF if xhtml2pdf available
                                 if has_weasyprint:
-                                    from io import BytesIO
-                                    result = BytesIO()
-                                    pisa.CreatePDF(BytesIO(rendered_html.encode('utf-8')), dest=result)
-                                    pdf_bytes = result.getvalue()
-                                    
-                                    st.success("✅ PDF generated successfully!")
-                                    st.balloons()
-                                    
-                                    st.download_button(
-                                        label="📥 Download PDF",
-                                        data=pdf_bytes,
-                                        file_name="hand_receipts.pdf",
-                                        mime="application/pdf",
-                                        use_container_width=True
-                                    )
+                                    try:
+                                        from io import BytesIO
+                                        result = BytesIO()
+                                        pisa.CreatePDF(BytesIO(rendered_html.encode('utf-8')), dest=result)
+                                        pdf_bytes = result.getvalue()
+                                        
+                                        st.success("✅ PDF generated successfully!")
+                                        st.balloons()
+                                        
+                                        st.download_button(
+                                            label="📥 Download PDF",
+                                            data=pdf_bytes,
+                                            file_name="hand_receipts.pdf",
+                                            mime="application/pdf",
+                                            use_container_width=True
+                                        )
+                                    except Exception as pdf_error:
+                                        st.warning(f"⚠️ PDF generation failed: {pdf_error}")
+                                        st.download_button(
+                                            label="📥 Download HTML",
+                                            data=rendered_html,
+                                            file_name="hand_receipts.html",
+                                            mime="text/html",
+                                            use_container_width=True
+                                        )
                                 else:
                                     # Fallback to HTML download
                                     st.warning("⚠️ PDF generation not available. Downloading HTML instead.")
