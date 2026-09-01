@@ -12,14 +12,6 @@ import sys
 import zipfile
 import io
 
-# ----------------------------------------------------------------------
-# Sample‑input download link (shown in the Streamlit sidebar)
-# ----------------------------------------------------------------------
-st.sidebar.markdown(
-    "[Sample Input Files]"
-    "(https://github.com/CRAJKUMARSINGH/PWD-TOOLS-PRIYANKA/tree/main/SAMPLE%20INPUT%20OUTPUT%20FILES)"
-)
-
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 try:
@@ -59,7 +51,7 @@ receipt_template = Template("""
         .amount-words { font-style: italic; }
         .signature-area, .offices { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .signature-area td, .signature-area th { border: 1px solid #ccc; padding: 5px; text-align: left; }
-        .offices td, .offices th { border: 1px solid black; padding: 5px; text-align: left; word-wrap: break-word; }
+        .offices td, .offices th { border: 1px solid black; padding: 5px; text-align: left; }
         .input-field { border-bottom: 1px dotted #ccc; padding: 3px; width: 95%; display: inline-block; }
         .bottom-left-box {
             position: absolute; bottom: 40mm; left: 40mm;
@@ -79,8 +71,8 @@ receipt_template = Template("""
             <p>Division - PWD District Division-II, Udaipur</p>
         </div>
         <div class="details">
-            <p>(1)Cash Book Voucher No.      Date      </p>
-            <p>(2)Cheque No. and Date      </p>
+            <p>(1)Cash Book Voucher No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p>(2)Cheque No. and Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <p>(3) Pay for ECS Rs.{{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p>(4) Paid by me</p>
             <p>(5) Received from The Executive Engineer PWD District Division-II, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
@@ -88,7 +80,7 @@ receipt_template = Template("""
             <p> Chargeable to Head:- 8443 [EMD-Refund] </p>
             <table class="signature-area">
                 <tr><td>Witness</td><td>Stamp</td><td>Signature of payee</td></tr>
-                <tr><td>Cash Book No.               Page No.</td><td></td><td></td></tr>
+                <tr><td>Cash Book No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td></td><td></td></tr>
             </table>
             <table class="offices">
                 <tr><td>For use in the Divisional Office</td><td>For use in the Accountant General's office</td></tr>
@@ -182,6 +174,12 @@ def main():
     if has_utils:
         apply_custom_css()
         create_breadcrumb("Hand Receipt Generator")
+    
+    # Sample‑input download link (shown in the Streamlit sidebar)
+    st.sidebar.markdown(
+        "[Sample Input Files]"
+        "(https://github.com/CRAJKUMARSINGH/PWD-TOOLS-PRIYANKA/tree/main/SAMPLE%20INPUT%20OUTPUT%20FILES)"
+    )
     
     st.markdown("## 📄 Hand Receipt Generator (RPWA 28)")
     st.markdown("### Generate professional hand receipts for EMD refunds")
