@@ -36,16 +36,6 @@ try:
 except ImportError:
     has_weasyprint = False
 
-st.set_page_config(
-    page_title="Hand Receipt Generator (RPWA 28)",
-    page_icon="📄",
-    layout="wide"
-)
-
-if has_utils:
-    apply_custom_css()
-    create_breadcrumb("Hand Receipt Generator")
-
 # ----------------------------------------------------------------------
 # Receipt template
 # ----------------------------------------------------------------------
@@ -57,11 +47,11 @@ receipt_template = Template("""
     <meta name="viewport" content="width=210mm, height=297mm">
     <title>Hand Receipt (RPWA 28)</title>
     <style>
-        body { font-family: sans-serif; margin: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; }
         @page { size: A4 portrait; margin: 10mm; }
         .container {
             width: 210mm; height: 297mm; margin: 0 auto;
-            border: 2px solid #ccc; padding: 20px; box-sizing: border-box;
+            border: 2px solid #ccc; padding: 20px;
             position: relative; page-break-after: always;
         }
         .header { text-align: center; margin-bottom: 2px; }
@@ -70,7 +60,7 @@ receipt_template = Template("""
         .signature-area, .offices { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .signature-area td, .signature-area th { border: 1px solid #ccc; padding: 5px; text-align: left; }
         .offices td, .offices th { border: 1px solid black; padding: 5px; text-align: left; word-wrap: break-word; }
-        .input-field { border-bottom: 1px dotted #ccc; padding: 3px; width: calc(100% - 10px); display: inline-block; }
+        .input-field { border-bottom: 1px dotted #ccc; padding: 3px; width: 95%; display: inline-block; }
         .bottom-left-box {
             position: absolute; bottom: 40mm; left: 40mm;
             border: 2px solid black; padding: 10px; width: 300px; text-align: left;
@@ -86,14 +76,14 @@ receipt_template = Template("""
             <h2>Payable to: - {{ receipt.payee }}</h2>
             <h2>HAND RECEIPT (RPWA 28)</h2>
             <p>(Referred to in PWF&A Rules 418,424,436 & 438)</p>
-            <p>Division - PWD **Electric Division**, Udaipur</p>
+            <p>Division - PWD District Division-II, Udaipur</p>
         </div>
         <div class="details">
             <p>(1)Cash Book Voucher No.      Date      </p>
             <p>(2)Cheque No. and Date      </p>
             <p>(3) Pay for ECS Rs.{{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p>(4) Paid by me</p>
-            <p>(5) Received from The Executive Engineer PWD **Electric Division**, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
+            <p>(5) Received from The Executive Engineer PWD District Division-II, Udaipur the sum of Rs. {{ receipt.amount }}/- (Rupees <span class="amount-words">{{ receipt.amount_words }} only</span>)</p>
             <p> Name of work for which payment is made: <span class="input-field">{{ receipt.work }}</span></p>
             <p> Chargeable to Head:- 8443 [EMD-Refund] </p>
             <table class="signature-area">
@@ -103,7 +93,14 @@ receipt_template = Template("""
             <table class="offices">
                 <tr><td>For use in the Divisional Office</td><td>For use in the Accountant General's office</td></tr>
                 <tr><td>Checked</td><td>Audited/Reviewed</td></tr>
+                <tr><td>Accounts Clerk</td><td>DA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Auditor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Supdt. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; G.O.</td></tr>
             </table>
+        </div>
+        <div class="bottom-left-box">
+            <p class="blue-text"> Passed for Rs. {{ receipt.amount }}</p>
+            <p class="blue-text"> In Words Rupees: {{ receipt.amount_words }} Only</p>
+            <p class="blue-text"> Chargeable to Head:- 8443 [EMD-Refund]</p>
+            <div class="seal"><p>Ar.</p><p>D.A.</p><p>E.E.</p></div>
         </div>
     </div>
     {% endfor %}
@@ -176,6 +173,16 @@ def find_column(df_columns, possible_names):
 
 
 def main():
+    st.set_page_config(
+        page_title="Hand Receipt Generator (RPWA 28)",
+        page_icon="📄",
+        layout="wide"
+    )
+
+    if has_utils:
+        apply_custom_css()
+        create_breadcrumb("Hand Receipt Generator")
+    
     st.markdown("## 📄 Hand Receipt Generator (RPWA 28)")
     st.markdown("### Generate professional hand receipts for EMD refunds")
 
@@ -254,48 +261,57 @@ def main():
                                 rendered_html = receipt_template.render(receipts=receipts)
 
                                 if has_weasyprint:
-            if has_weasyprint:
-                # Generate individual PDFs for each receipt and bundle into a ZIP
-                zip_buffer = io.BytesIO()
-                with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
-                    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-                    from reportlab.lib.styles import getSampleStyleSheet
-                    from reportlab.lib.pagesizes import A4
-                    for idx, receipt in enumerate(receipts, start=1):
-                        # Create PDF for this receipt
-                        pdf_buffer = io.BytesIO()
-                        doc = SimpleDocTemplate(pdf_buffer, pagesize=A4)
-                        styles = getSampleStyleSheet()
-                        story = []
-                        # Simple single receipt layout – reuse receipt_template
-                        single_html = receipt_template.render(receipts=[receipt])
-                        # Placeholder paragraphs with payee info
-                        story.append(Paragraph(f"Payable to: {receipt['payee']}", styles['Title']))
-                        story.append(Paragraph(f"Amount: {receipt['amount']} ({receipt['amount_words']} only)", styles['Normal']))
-                        story.append(Paragraph(f"Work: {receipt['work']}", styles['Normal']))
-                        doc.build(story)
-                        pdf_bytes = pdf_buffer.getvalue()
-                        zip_file.writestr(f"receipt_{idx}.pdf", pdf_bytes)
-                zip_buffer.seek(0)
-                st.success("✅ PDFs generated and zipped successfully!")
-                st.balloons()
-                st.download_button(
-                    label="📥 Download ZIP of PDFs",
-                    data=zip_buffer.getvalue(),
-                    file_name="hand_receipts.zip",
-                    mime="application/zip",
-                    use_container_width=True
-                )
-            else:
-                # Fallback: download HTML
-                st.warning("⚠️ PDF generation not available. Downloading HTML instead.")
-                st.download_button(
-                    label="📥 Download HTML",
-                    data=rendered_html,
-                    file_name="hand_receipts.html",
-                    mime="text/html",
-                    use_container_width=True
-                )
+                                    try:
+                                        # Generate individual PDFs for each receipt and bundle into a ZIP
+                                        zip_buffer = io.BytesIO()
+                                        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+                                            from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+                                            from reportlab.lib.styles import getSampleStyleSheet
+                                            from reportlab.lib.pagesizes import A4
+                                            for idx, receipt in enumerate(receipts, start=1):
+                                                # Create PDF for this receipt
+                                                pdf_buffer = io.BytesIO()
+                                                doc = SimpleDocTemplate(pdf_buffer, pagesize=A4)
+                                                styles = getSampleStyleSheet()
+                                                story = []
+                                                # Simple single receipt layout – reuse receipt_template
+                                                single_html = receipt_template.render(receipts=[receipt])
+                                                # Placeholder paragraphs with payee info
+                                                story.append(Paragraph(f"Payable to: {receipt['payee']}", styles['Title']))
+                                                story.append(Paragraph(f"Amount: {receipt['amount']} ({receipt['amount_words']} only)", styles['Normal']))
+                                                story.append(Paragraph(f"Work: {receipt['work']}", styles['Normal']))
+                                                doc.build(story)
+                                                pdf_bytes = pdf_buffer.getvalue()
+                                                zip_file.writestr(f"receipt_{idx}.pdf", pdf_bytes)
+                                        zip_buffer.seek(0)
+                                        st.success("✅ PDFs generated and zipped successfully!")
+                                        st.balloons()
+                                        st.download_button(
+                                            label="📥 Download ZIP of PDFs",
+                                            data=zip_buffer.getvalue(),
+                                            file_name="hand_receipts.zip",
+                                            mime="application/zip",
+                                            use_container_width=True
+                                        )
+                                    except Exception as pdf_error:
+                                        st.warning(f"⚠️ PDF generation failed: {pdf_error}")
+                                        st.download_button(
+                                            label="📥 Download HTML",
+                                            data=rendered_html,
+                                            file_name="hand_receipts.html",
+                                            mime="text/html",
+                                            use_container_width=True
+                                        )
+                                else:
+                                    # Fallback: download HTML
+                                    st.warning("⚠️ PDF generation not available. Downloading HTML instead.")
+                                    st.download_button(
+                                        label="📥 Download HTML",
+                                        data=rendered_html,
+                                        file_name="hand_receipts.html",
+                                        mime="text/html",
+                                        use_container_width=True
+                                    )
 
                                 st.info(f"✅ Generated {len(receipts)} receipt(s)")
 
