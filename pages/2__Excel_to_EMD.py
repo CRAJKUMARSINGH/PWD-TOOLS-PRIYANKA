@@ -9,6 +9,8 @@ import pandas as pd
 from jinja2 import Template
 from pathlib import Path
 import sys
+import zipfile
+import io
 
 # ----------------------------------------------------------------------
 # Sample‑input download link (shown in the Streamlit sidebar)
@@ -252,40 +254,48 @@ def main():
                                 rendered_html = receipt_template.render(receipts=receipts)
 
                                 if has_weasyprint:
-                                    # Simplified PDF generation using ReportLab
-                                    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-                                    from reportlab.lib.styles import getSampleStyleSheet
-                                    from io import BytesIO
-
-                                    buffer = BytesIO()
-                                    doc = SimpleDocTemplate(buffer, pagesize=A4)
-                                    styles = getSampleStyleSheet()
-                                    story = [Paragraph("Hand Receipts", styles['Title'])]
-                                    for receipt in receipts:
-                                        story.append(Paragraph(f"Receipt for {receipt['payee']}", styles['Normal']))
-                                        story.append(Spacer(1, 12))
-                                    doc.build(story)
-                                    pdf_bytes = buffer.getvalue()
-
-                                    st.success("✅ PDF generated successfully!")
-                                    st.balloons()
-                                    st.download_button(
-                                        label="📥 Download PDF",
-                                        data=pdf_bytes,
-                                        file_name="hand_receipts.pdf",
-                                        mime="application/pdf",
-                                        use_container_width=True
-                                    )
-                                else:
-                                    # Fallback: download HTML
-                                    st.warning("⚠️ PDF generation not available. Downloading HTML instead.")
-                                    st.download_button(
-                                        label="📥 Download HTML",
-                                        data=rendered_html,
-                                        file_name="hand_receipts.html",
-                                        mime="text/html",
-                                        use_container_width=True
-                                    )
+            if has_weasyprint:
+                # Generate individual PDFs for each receipt and bundle into a ZIP
+                zip_buffer = io.BytesIO()
+                with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+                    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+                    from reportlab.lib.styles import getSampleStyleSheet
+                    from reportlab.lib.pagesizes import A4
+                    for idx, receipt in enumerate(receipts, start=1):
+                        # Create PDF for this receipt
+                        pdf_buffer = io.BytesIO()
+                        doc = SimpleDocTemplate(pdf_buffer, pagesize=A4)
+                        styles = getSampleStyleSheet()
+                        story = []
+                        # Simple single receipt layout – reuse receipt_template
+                        single_html = receipt_template.render(receipts=[receipt])
+                        # Placeholder paragraphs with payee info
+                        story.append(Paragraph(f"Payable to: {receipt['payee']}", styles['Title']))
+                        story.append(Paragraph(f"Amount: {receipt['amount']} ({receipt['amount_words']} only)", styles['Normal']))
+                        story.append(Paragraph(f"Work: {receipt['work']}", styles['Normal']))
+                        doc.build(story)
+                        pdf_bytes = pdf_buffer.getvalue()
+                        zip_file.writestr(f"receipt_{idx}.pdf", pdf_bytes)
+                zip_buffer.seek(0)
+                st.success("✅ PDFs generated and zipped successfully!")
+                st.balloons()
+                st.download_button(
+                    label="📥 Download ZIP of PDFs",
+                    data=zip_buffer.getvalue(),
+                    file_name="hand_receipts.zip",
+                    mime="application/zip",
+                    use_container_width=True
+                )
+            else:
+                # Fallback: download HTML
+                st.warning("⚠️ PDF generation not available. Downloading HTML instead.")
+                st.download_button(
+                    label="📥 Download HTML",
+                    data=rendered_html,
+                    file_name="hand_receipts.html",
+                    mime="text/html",
+                    use_container_width=True
+                )
 
                                 st.info(f"✅ Generated {len(receipts)} receipt(s)")
 
