@@ -72,5 +72,5 @@ Parent directory: {parent_dir}
         st.error(f"❌ Error loading the app: {str(e)}")
         st.code(f"Error details: {type(e).__name__}: {str(e)}")
 
-if __name__ == "__main__":
-    main()
+# Run main function
+main()

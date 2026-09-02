@@ -226,9 +226,8 @@ def create_back_button():
         st.switch_page("app.py")
     st.markdown('</div>', unsafe_allow_html=True)
 
+# Run main function
+main()
+
 # Create navigation
 create_back_button()
-
-# Run main function
-if __name__ == "__main__":
-    main()

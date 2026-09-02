@@ -3,6 +3,9 @@ import pandas as pd
 import io
 from datetime import datetime
 
+# Page configuration must be at module level in Streamlit multipage apps
+st.set_page_config(page_title="Hand Receipt Generator", page_icon="📄", layout="wide")
+
 def generate_receipt(data, idx):
     """Generate RPWA 28 receipt for a single row of data"""
     receipt = f"""
@@ -32,9 +35,7 @@ def generate_receipt(data, idx):
     return receipt
 
 def main():
-    st.set_page_config(page_title="Hand Receipt Generator", page_icon="📄")
-    
-    st.title("Generate Hand Receipts (RPWA 28)")
+    st.title("🧾 Generate Hand Receipts (RPWA 28)")
     st.write("Upload an Excel (.xlsx) or CSV file containing receipt data and download generated receipts.")
     
     # File uploader
@@ -143,5 +144,5 @@ def main():
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")
 
-if __name__ == "__main__":
-    main()
+# Run main function
+main()

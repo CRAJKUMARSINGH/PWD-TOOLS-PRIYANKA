@@ -28,9 +28,8 @@ def main():
     except FileNotFoundError:
         st.error("Tool not available")
 
+# Run main function
+main()
+
 # Navigation
 create_back_button()
-
-# Run main function
-if __name__ == "__main__":
-    main()

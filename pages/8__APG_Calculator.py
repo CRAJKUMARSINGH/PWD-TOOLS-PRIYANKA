@@ -1,14 +1,15 @@
 import streamlit as st
 import os
 
+# Page configuration must be at module level in Streamlit multipage apps
+st.set_page_config(
+    page_title="APG Calculator",
+    page_icon="🧮",
+    layout="wide"
+)
+
 def main():
     """Main function for APG Calculator"""
-    st.set_page_config(
-        page_title="APG Calculator",
-        page_icon="🧮",
-        layout="wide"
-    )
-
     st.title("🧮 APG Calculator")
     st.markdown("**50% of savings beyond -15% below G-Schedule**")
 
@@ -27,5 +28,5 @@ def main():
         st.error(f"APG Calculator HTML file not found at: {html_file_path}")
         st.info("Please ensure the file exists in the static/html directory.")
 
-if __name__ == "__main__":
-    main()
+# Run main function
+main()

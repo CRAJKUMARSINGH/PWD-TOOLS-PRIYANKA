@@ -129,11 +129,10 @@ def main():
             </script>
             """, unsafe_allow_html=True)
 
+# Run main function
+main()
+
 # Navigation
 if has_utils:
     st.markdown("---")
     create_back_button()
-
-# Run main function
-if __name__ == "__main__":
-    main()

@@ -213,5 +213,5 @@ def show_hindi_manual():
     Kiro AI Assistant से AI सहायता के साथ विकसित
     """)
 
-if __name__ == "__main__":
-    main()
+# Run main function
+main()
